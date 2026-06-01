@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AMBIENTAI – Ferramentas de Tecnologia para Arquitetura</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --azul-escuro: #1a3a5c;
+    --azul-medio: #2d6a9f;
+    --dourado: #c9a84c;
+    --branco: #ffffff;
+    --cinza-claro: #f5f8fc;
+    --cinza-texto: #4a5568;
+    --ventilar: #2d6a9f;
+    --sol: #c9a84c;
+    --acustica: #2d7a5f;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--branco);
+    color: var(--azul-escuro);
+    line-height: 1.7;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    background: rgba(10, 20, 35, 0.97);
+    backdrop-filter: blur(8px);
+    padding: 16px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: white;
+    letter-spacing: 6px;
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--dourado); }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    align-items: center;
+  }
+
+  .nav-links a {
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: white; }
+
+  .nav-links a.btn-nav {
+    background: var(--dourado);
+    color: var(--azul-escuro);
+    padding: 8px 24px;
+    border-radius: 2px;
+    font-weight: 500;
+  }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(150deg, #0a1423 0%, #1a3a5c 50%, #0f2440 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 100px 24px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-orb1 {
+    position: absolute;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    border: 1px solid rgba(201,168,76,0.08);
+    top: -200px; right: -200px;
+  }
+
+  .hero-orb2 {
+    position: absolute;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.04);
+    bottom: -150px; left: -100px;
+  }
+
+  .hero-tag {
+    font-size: 0.75rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--dourado);
+    margin-bottom: 24px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(4rem, 10vw, 8rem);
+    font-weight: 700;
+    color: white;
+    letter-spacing: 16px;
+    line-height: 1;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-logo span { color: var(--dourado); }
+
+  .hero-divider {
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--dourado), transparent);
+    margin: 24px auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-sub {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
+    letter-spacing: 2px;
+    color: rgba(255,255,255,0.75);
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-autor {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 2px;
+    margin-bottom: 56px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-btns {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .btn-primary {
+    background: var(--dourado);
+    color: var(--azul-escuro);
+    padding: 14px 40px;
+    border-radius: 2px;
+    font-weight: 500;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+
+  .btn-primary:hover { opacity: 0.88; }
+
+  .btn-outline {
+    border: 1px solid rgba(255,255,255,0.3);
+    color: rgba(255,255,255,0.8);
+    padding: 14px 40px;
+    border-radius: 2px;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .btn-outline:hover {
+    background: rgba(255,255,255,0.06);
+    border-color: rgba(255,255,255,0.5);
+  }
+
+  /* PROGRAMAS */
+  .programas {
+    padding: 100px 24px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .secao-header {
+    text-align: center;
+    margin-bottom: 64px;
+  }
+
+  .secao-tag {
+    font-size: 0.75rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--dourado);
+    margin-bottom: 16px;
+  }
+
+  .secao-titulo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 600;
+    color: var(--azul-escuro);
+    margin-bottom: 16px;
+  }
+
+  .secao-sub {
+    font-size: 1rem;
+    color: var(--cinza-texto);
+    max-width: 600px;
+    margin: 0 auto;
+    font-weight: 300;
+  }
+
+  /* CARDS DOS PROGRAMAS */
+  .programa-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border: 1px solid #dce8f4;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 32px;
+    transition: box-shadow 0.3s;
+  }
+
+  .programa-card:hover {
+    box-shadow: 0 16px 48px rgba(26,58,92,0.12);
+  }
+
+  .programa-card.invertido {
+    direction: rtl;
+  }
+
+  .programa-card.invertido > * {
+    direction: ltr;
+  }
+
+  .programa-visual {
+    padding: 56px 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .programa-visual.ventilar { background: linear-gradient(135deg, #1a3a5c 0%, #2d6a9f 100%); }
+  .programa-visual.sol { background: linear-gradient(135deg, #7a5a10 0%, #c9a84c 100%); }
+  .programa-visual.acustica { background: linear-gradient(135deg, #1a3d2e 0%, #2d7a5f 100%); }
+
+  .programa-numero {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 8rem;
+    font-weight: 700;
+    color: rgba(255,255,255,0.08);
+    position: absolute;
+    bottom: -20px;
+    right: 20px;
+    line-height: 1;
+  }
+
+  .programa-icone {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .programa-nome {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: white;
+    letter-spacing: 4px;
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .programa-norma {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.6);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    position: relative;
+    z-index: 1;
+  }
+
+  .programa-info {
+    padding: 48px;
+    background: var(--branco);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .programa-desc {
+    font-size: 1rem;
+    color: var(--cinza-texto);
+    line-height: 1.8;
+    margin-bottom: 28px;
+  }
+
+  .programa-features {
+    list-style: none;
+    margin-bottom: 32px;
+  }
+
+  .programa-features li {
+    padding: 8px 0;
+    font-size: 0.9rem;
+    color: var(--azul-escuro);
+    border-bottom: 1px solid #f0f4f8;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .programa-features li::before {
+    content: '→';
+    color: var(--dourado);
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+
+  .btn-programa {
+    display: inline-block;
+    padding: 12px 32px;
+    border-radius: 2px;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: 500;
+    transition: opacity 0.2s;
+    align-self: flex-start;
+  }
+
+  .btn-programa:hover { opacity: 0.85; }
+  .btn-ventilar { background: var(--ventilar); color: white; }
+  .btn-sol { background: var(--sol); color: var(--azul-escuro); }
+  .btn-acustica { background: var(--acustica); color: white; }
+
+  /* SOBRE */
+  .sobre {
+    background: linear-gradient(150deg, #0a1423 0%, #1a3a5c 100%);
+    padding: 100px 24px;
+    text-align: center;
+    color: white;
+  }
+
+  .sobre-inner { max-width: 700px; margin: 0 auto; }
+
+  .sobre h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 600;
+    margin-bottom: 24px;
+  }
+
+  .sobre h2 span { color: var(--dourado); }
+
+  .sobre p {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.9;
+    font-weight: 300;
+    margin-bottom: 16px;
+  }
+
+  .sobre-divider {
+    width: 60px;
+    height: 1px;
+    background: var(--dourado);
+    margin: 32px auto;
+  }
+
+  .sobre-autor {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    color: white;
+    margin-bottom: 8px;
+  }
+
+  .sobre-cargo {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 2px;
+  }
+
+  /* PLANOS */
+  .planos {
+    padding: 100px 24px;
+    background: var(--cinza-claro);
+  }
+
+  .planos-inner { max-width: 1000px; margin: 0 auto; }
+
+  .planos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px;
+    margin-top: 48px;
+  }
+
+  .plano-card {
+    background: var(--branco);
+    border: 1px solid #dce8f4;
+    border-radius: 4px;
+    padding: 40px 32px;
+    text-align: center;
+    position: relative;
+    transition: box-shadow 0.2s;
+  }
+
+  .plano-card:hover { box-shadow: 0 8px 32px rgba(26,58,92,0.10); }
+
+  .plano-card.destaque { border: 2px solid var(--azul-medio); }
+
+  .plano-badge {
+    position: absolute;
+    top: -12px; left: 50%;
+    transform: translateX(-50%);
+    background: var(--azul-medio);
+    color: white;
+    font-size: 0.72rem;
+    padding: 4px 16px;
+    border-radius: 2px;
+    letter-spacing: 1px;
+    white-space: nowrap;
+  }
+
+  .plano-nome {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: var(--azul-escuro);
+    margin-bottom: 8px;
+  }
+
+  .plano-preco {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.6rem;
+    color: var(--azul-medio);
+    margin: 16px 0 4px;
+  }
+
+  .plano-preco span {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    color: var(--cinza-texto);
+    font-weight: 300;
+  }
+
+  .plano-anual {
+    font-size: 0.82rem;
+    color: var(--cinza-texto);
+    margin-bottom: 24px;
+  }
+
+  .plano-divider {
+    width: 40px; height: 1px;
+    background: #dce8f4;
+    margin: 20px auto;
+  }
+
+  .plano-desc {
+    font-size: 0.9rem;
+    color: var(--cinza-texto);
+    line-height: 1.7;
+    margin-bottom: 28px;
+  }
+
+  .btn-plano {
+    display: block;
+    padding: 12px 24px;
+    border-radius: 2px;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    text-decoration: none;
+    transition: opacity 0.2s;
+    font-weight: 500;
+  }
+
+  .btn-plano:hover { opacity: 0.85; }
+  .btn-plano.escuro { background: var(--azul-escuro); color: white; }
+  .btn-plano.dourado { background: var(--dourado); color: var(--azul-escuro); }
+
+  /* FOOTER */
+  footer {
+    background: #06111f;
+    color: rgba(255,255,255,0.5);
+    padding: 60px 24px;
+    text-align: center;
+  }
+
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: white;
+    letter-spacing: 8px;
+    margin-bottom: 8px;
+  }
+
+  .footer-logo span { color: var(--dourado); }
+
+  .footer-sub {
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    color: rgba(255,255,255,0.35);
+    margin-bottom: 32px;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 32px;
+    justify-content: center;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+  }
+
+  .footer-links a {
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--dourado); }
+
+  .footer-copy {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.25);
+  }
+
+  @media (max-width: 768px) {
+    .programa-card { grid-template-columns: 1fr; }
+    .programa-card.invertido { direction: ltr; }
+    .nav-links { display: none; }
+    nav { padding: 14px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">AMBIENT<span>AI</span></a>
+  <div class="nav-links">
+    <a href="#programas">Programas</a>
+    <a href="#sobre">Sobre</a>
+    <a href="#planos">Planos</a>
+    <a href="https://wa.me/5511991491220" target="_blank" class="btn-nav">Contato</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-orb1"></div>
+  <div class="hero-orb2"></div>
+  <p class="hero-tag">Tecnologia aplicada à arquitetura</p>
+  <div class="hero-logo">AMBIENT<span>AI</span></div>
+  <div class="hero-divider"></div>
+  <p class="hero-sub">Ferramentas de apoio ao projeto arquitetônico</p>
+  <p class="hero-autor">Marcia Alucci · São Paulo · 2026</p>
+  <div class="hero-btns">
+    <a href="#programas" class="btn-primary">Conheça os programas</a>
+    <a href="https://wa.me/5511991491220?text=Olá!%20Tenho%20interesse%20nos%20programas%20AMBIENTAI." class="btn-outline" target="_blank">Fale pelo WhatsApp</a>
+  </div>
+</div>
+
+<!-- PROGRAMAS -->
+<div class="programas" id="programas">
+  <div class="secao-header">
+    <p class="secao-tag">Suite de ferramentas</p>
+    <h2 class="secao-titulo">Três ferramentas.</h2>
+    <p class="secao-sub">Cada ferramenta foi desenvolvida para apoiar decisões de projeto com precisão e agilidade, seguindo as normas brasileiras vigentes.</p>
+  </div>
+
+  <!-- VENTILAR -->
+  <div class="programa-card">
+    <div class="programa-visual ventilar">
+      <div class="programa-icone">🌬️</div>
+      <div class="programa-nome">VENTILAR</div>
+      <div class="programa-norma">NBR 16401-3</div>
+      <div class="programa-numero">01</div>
+    </div>
+    <div class="programa-info">
+      <p class="programa-desc">Verifica se as taxas de renovação do ar de um ambiente atendem os valores mínimos da NBR 16401-3, considerando os efeitos do vento, efeito chaminé e sua combinação.</p>
+      <ul class="programa-features">
+        <li>Efeito do vento com perfil logarítmico e coeficientes Cp</li>
+        <li>Efeito chaminé com cálculo da zona neutra</li>
+        <li>Composição quadrática Q = √(Q²vento + Q²chaminé)</li>
+        <li>20 capitais brasileiras com dados climáticos</li>
+      </ul>
+      <a href="https://ventilar.streamlit.app" class="btn-programa btn-ventilar" target="_blank">Acessar VENTILAR →</a>
+    </div>
+  </div>
+
+  <!-- SOL NA JANELA -->
+  <div class="programa-card invertido">
+    <div class="programa-visual sol">
+      <div class="programa-icone">☀️</div>
+      <div class="programa-nome">SOL NA JANELA</div>
+      <div class="programa-norma"></div>
+      <div class="programa-numero">02</div>
+    </div>
+    <div class="programa-info">
+      <p class="programa-desc">Calcula os horários do dia e meses do ano em que há incidência de sol direto em uma dada janela, em uma dada cidade, auxiliando decisões sobre proteção solar e conforto lumínico.</p>
+      <ul class="programa-features">
+        <li>Incidência hora a hora ao longo do ano</li>
+        <li>Dados por cidade de referência</li>
+        <li>Orientação da janela por azimute</li>
+        
+      </ul>
+      <a href="https://wa.me/5511991491220?text=Tenho%20interesse%20no%20programa%20Sol%20na%20Janela." class="btn-programa btn-sol" target="_blank">Em breve →</a>
+    </div>
+  </div>
+
+  <!-- ACÚSTICA URBANA -->
+  <div class="programa-card">
+    <div class="programa-visual acustica">
+      <div class="programa-icone">🔊</div>
+      <div class="programa-nome">ACÚSTICA URBANA</div>
+      <div class="programa-norma">NBR 10152 · NBR 15575-4</div>
+      <div class="programa-numero">03</div>
+    </div>
+    <div class="programa-info">
+      <p class="programa-desc">Avalia o desempenho acústico de ambientes em áreas urbanas considerando o ruído de tráfego veicular, em 7 etapas desde a caracterização da via até o resultado final conforme norma.</p>
+      <ul class="programa-features">
+        <li>Caracterização do sistema viário e tráfego</li>
+        <li>Isolamento da fachada e absorção interna</li>
+        <li>Nível de Pressão Sonora em 4 pontos</li>
+        <li>Verificação automática NBR 10152:2017</li>
+      </ul>
+      <a href="https://wa.me/5511991491220?text=Tenho%20interesse%20no%20programa%20Acústica%20Urbana." class="btn-programa btn-acustica" target="_blank">Em breve →</a>
+    </div>
+  </div>
+</div>
+
+<!-- SOBRE -->
+<div class="sobre" id="sobre">
+  <div class="sobre-inner">
+    <p class="secao-tag" style="color:var(--dourado); font-size:0.75rem; letter-spacing:4px; text-transform:uppercase; margin-bottom:16px;">Sobre a AMBIENTAI</p>
+    <h2>Tecnologia a serviço do <span>projeto arquitetônico</span></h2>
+    <div class="sobre-divider"></div>
+    <p>A AMBIENTAI é uma suite de ferramentas computacionais desenvolvidas para apoiar arquitetos, engenheiros e estudantes na tomada de decisões de projeto, com base nas normas técnicas brasileiras.</p>
+    <p>Cada programa foi concebido para transformar procedimentos complexos de cálculo em interfaces simples, ágeis e acessíveis — sem abrir mão do rigor técnico.</p>
+    <div class="sobre-divider"></div>
+    <p class="sobre-autor">Marcia Alucci</p>
+    <p class="sobre-cargo">Arquiteta · Pesquisadora · São Paulo · 2026</p>
+  </div>
+</div>
+
+<!-- PLANOS -->
+<div class="planos" id="planos">
+  <div class="planos-inner">
+    <div class="secao-header">
+      <p class="secao-tag">Planos e preços</p>
+      <h2 class="secao-titulo">Escolha seu plano</h2>
+      <p class="secao-sub">Acesso a todos os programas disponíveis da suite AMBIENTAI. Entre em contato pelo WhatsApp para assinar.</p>
+    </div>
+
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); gap:24px; max-width:640px; margin:48px auto 0;">
+      <div class="plano-card">
+        <div class="plano-nome">Mensal</div>
+        <div class="plano-preco">R$ 50<span>/mês</span></div>
+        <div class="plano-anual">Cancele quando quiser</div>
+        <div class="plano-divider"></div>
+        <p class="plano-desc">Acesso completo a todas as ferramentas AMBIENTAI. Renovação automática todo mês.</p>
+        <a href="https://buy.stripe.com/5kQ7sNcggdnVfso1QEeME00" class="btn-plano escuro" target="_blank">Assinar agora</a>
+      </div>
+      <div class="plano-card destaque">
+        <div class="plano-badge">Melhor valor</div>
+        <div class="plano-nome">Anual</div>
+        <div class="plano-preco">R$ 500<span>/ano</span></div>
+        <div class="plano-anual">2 meses grátis — R$ 41,67/mês</div>
+        <div class="plano-divider"></div>
+        <p class="plano-desc">Acesso completo a todas as ferramentas AMBIENTAI. Renovação automática todo ano.</p>
+        <a href="https://buy.stripe.com/dRmfZjeoo6Zxfso1QEeME01" class="btn-plano dourado" target="_blank">Assinar agora</a>
+      </div>
+    </div>
