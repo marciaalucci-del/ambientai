@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planos — VENTILAR · AMBIENTAI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --azul-escuro: #0d1b2a;
+            --azul-medio: #1b3a5c;
+            --azul-claro: #2e6da4;
+            --dourado: #c9a84c;
+            --dourado-claro: #f0d080;
+            --branco: #f8f8f6;
+            --cinza: #a0a8b0;
+            --fonte-display: 'Cormorant Garamond', serif;
+            --fonte-corpo: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: #f0f2f5;
+            color: var(--azul-escuro);
+            font-family: var(--fonte-corpo);
+            font-weight: 300;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* NAV */
+        nav {
+            background: var(--azul-escuro);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 2.5rem;
+        }
+
+        .nav-logo {
+            font-family: var(--fonte-display);
+            font-size: 1.3rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            color: var(--dourado);
+            text-decoration: none;
+        }
+
+        .nav-logo span { color: var(--branco); }
+
+        /* HERO */
+        .hero {
+            text-align: center;
+            padding: 4rem 2rem 2rem;
+        }
+
+        .hero-eyebrow {
+            font-size: 0.72rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--azul-claro);
+            margin-bottom: 1rem;
+        }
+
+        .hero h1 {
+            font-family: var(--fonte-display);
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 600;
+            color: var(--azul-escuro);
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            color: #555;
+            font-size: 0.95rem;
+            max-width: 520px;
+            margin: 0 auto 0.5rem;
+            line-height: 1.7;
+        }
+
+        .hero a { color: var(--azul-claro); }
+
+        /* CARDS */
+        .plans-container {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 2.5rem 2rem 4rem;
+            max-width: 780px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .plan-card {
+            background: #fff;
+            border: 1px solid #dce2ea;
+            border-radius: 4px;
+            padding: 2.5rem 2rem;
+            width: 100%;
+            max-width: 320px;
+            text-align: center;
+            position: relative;
+        }
+
+        .plan-card.featured { border: 2px solid var(--azul-medio); }
+
+        .badge {
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--azul-medio);
+            color: #fff;
+            font-size: 0.72rem;
+            letter-spacing: 0.08em;
+            padding: 0.3rem 1rem;
+            border-radius: 2px;
+            white-space: nowrap;
+        }
+
+        .plan-name {
+            font-family: var(--fonte-display);
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: var(--azul-escuro);
+            margin-bottom: 1.2rem;
+        }
+
+        .plan-price {
+            font-family: var(--fonte-display);
+            font-size: 2.6rem;
+            color: var(--azul-claro);
+            line-height: 1;
+            margin-bottom: 0.3rem;
+        }
+
+        .plan-price sup { font-size: 1.2rem; vertical-align: super; }
+        .plan-price span { font-size: 1rem; color: #888; }
+
+        .plan-sub {
+            font-size: 0.8rem;
+            color: #888;
+            margin-bottom: 1.5rem;
+        }
+
+        .plan-divider {
+            border: none;
+            border-top: 1px solid #e5e8ee;
+            margin: 1.2rem 0;
+        }
+
+        .plan-desc {
+            font-size: 0.85rem;
+            color: #555;
+            line-height: 1.65;
+            margin-bottom: 1.8rem;
+        }
+
+        .btn-plan {
+            display: block;
+            width: 100%;
+            padding: 0.9rem;
+            font-family: var(--fonte-corpo);
+            font-size: 0.82rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-decoration: none;
+            text-align: center;
+            cursor: pointer;
+            transition: opacity 0.2s, transform 0.15s;
+        }
+
+        .btn-plan:hover { opacity: 0.88; transform: translateY(-1px); }
+        .btn-navy { background: var(--azul-medio); color: #fff; }
+        .btn-gold { background: var(--dourado); color: var(--azul-escuro); }
+
+        /* FOOTER */
+        footer {
+            margin-top: auto;
+            background: var(--azul-escuro);
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.72rem;
+            color: var(--cinza);
+            letter-spacing: 0.08em;
+        }
+
+        footer a { color: var(--dourado); text-decoration: none; }
+
+        .footer-logo {
+            font-family: var(--fonte-display);
+            font-size: 1.1rem;
+            letter-spacing: 0.15em;
+            color: var(--dourado);
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-logo span { color: var(--branco); }
+
+        @media (max-width: 600px) {
+            nav { padding: 1rem 1.2rem; }
+            .plans-container { padding: 2rem 1.2rem 3rem; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="https://ambientai.app.br" class="nav-logo">AMBIENT<span>AI</span></a>
+</nav>
+
+<section class="hero">
+    <p class="hero-eyebrow">VENTILAR · Planos e Preços</p>
+    <h1>Escolha seu plano</h1>
+    <p>Acesso ao programa VENTILAR da suite AMBIENTAI.<br>Dúvidas? Entre em contato: <a href="mailto:tecnologianaarquitetura@gmail.com">tecnologianaarquitetura@gmail.com</a></p>
+</section>
+
+<div class="plans-container">
+
+    <div class="plan-card">
+        <div class="plan-name">Mensal</div>
+        <div class="plan-price"><sup>R$</sup> 50<span>/mês</span></div>
+        <div class="plan-sub">Cancele quando quiser</div>
+        <hr class="plan-divider">
+        <p class="plan-desc">Acesso completo ao VENTILAR. Renovação automática todo mês.</p>
+        <a href="https://buy.stripe.com/14AfZj800cjR6VSbreeME03" class="btn-plan btn-navy" target="_blank">Assinar agora</a>
+    </div>
+
+    <div class="plan-card featured">
+        <div class="badge">Melhor valor</div>
+        <div class="plan-name">Anual</div>
+        <div class="plan-price"><sup>R$</sup> 500<span>/ano</span></div>
+        <div class="plan-sub">2 meses grátis — R$ 41,67/mês</div>
+        <hr class="plan-divider">
+        <p class="plan-desc">Acesso completo ao VENTILAR. Renovação automática todo ano.</p>
+        <a href="https://buy.stripe.com/3cI3cxcggcjR6VS66UeME02" class="btn-plan btn-gold" target="_blank">Assinar agora</a>
+    </div>
+
+</div>
+
+<footer>
+    <div class="footer-logo">AMBIENT<span>AI</span></div>
+    <p>TECNOLOGIA DA ARQUITETURA</p>
+    <br>
+    <p><a href="https://ambientai.app.br">ambientai.app.br</a> &nbsp;|&nbsp; © 2026 AMBIENTAI — Marcia Alucci · São Paulo</p>
+</footer>
+
+</body>
+</html>
