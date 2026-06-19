@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACÚSTICA URBANA — AMBIENTAI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --azul-escuro: #0d1b2a;
+            --azul-medio: #1b3a5c;
+            --azul-claro: #2e6da4;
+            --dourado: #c9a84c;
+            --dourado-claro: #f0d080;
+            --branco: #f8f8f6;
+            --cinza: #a0a8b0;
+            --fonte-display: 'Cormorant Garamond', serif;
+            --fonte-corpo: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--azul-escuro);
+            color: var(--branco);
+            font-family: var(--fonte-corpo);
+            font-weight: 300;
+            line-height: 1.7;
+        }
+
+        /* NAV */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 2.5rem;
+            border-bottom: 1px solid rgba(201,168,76,0.2);
+            background: var(--azul-escuro);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-logo {
+            font-family: var(--fonte-display);
+            font-size: 1.3rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            color: var(--dourado);
+            text-decoration: none;
+        }
+
+        /* HAMBURGUER */
+        .hamburger {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 6px;
+            background: none;
+            border: none;
+            z-index: 200;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 1.5px;
+            background: rgba(255,255,255,0.7);
+            transition: all 0.3s;
+        }
+
+        .hamburger:hover span { background: white; }
+
+        /* OVERLAY */
+        .menu-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.45);
+            z-index: 150;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+        .menu-overlay.aberto { opacity: 1; pointer-events: all; }
+
+        /* SIDEBAR */
+        .sidebar {
+            position: fixed;
+            top: 0; right: 0;
+            width: 280px;
+            height: 100vh;
+            background: rgba(6, 17, 31, 0.98);
+            backdrop-filter: blur(12px);
+            border-left: 1px solid rgba(201,168,76,0.15);
+            z-index: 160;
+            transform: translateX(100%);
+            transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+            display: flex;
+            flex-direction: column;
+            padding: 32px 0;
+        }
+        .sidebar.aberto { transform: translateX(0); }
+
+        .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 32px 28px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .sidebar-logo {
+            font-family: var(--fonte-display);
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: white;
+            letter-spacing: 4px;
+            text-decoration: none;
+        }
+        .sidebar-logo span { color: var(--dourado); }
+
+        .btn-fechar {
+            background: none;
+            border: none;
+            color: rgba(255,255,255,0.45);
+            font-size: 1.4rem;
+            cursor: pointer;
+            padding: 4px;
+            transition: color 0.2s;
+            line-height: 1;
+        }
+        .btn-fechar:hover { color: white; }
+
+        .sidebar-links {
+            display: flex;
+            flex-direction: column;
+            padding: 20px 0;
+        }
+
+        .sidebar-links a {
+            display: block;
+            padding: 13px 32px;
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-size: 0.76rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border-left: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .sidebar-links a:hover {
+            color: white;
+            background: rgba(255,255,255,0.04);
+            padding-left: 38px;
+        }
+
+        .sidebar-links .link-ventilar:hover { border-left-color: #2d6a9f; }
+        .sidebar-links .link-sol:hover { border-left-color: var(--dourado); }
+        .sidebar-links .link-acustica:hover { border-left-color: #2d7a5f; }
+
+        .sidebar-divider {
+            height: 1px;
+            background: rgba(255,255,255,0.06);
+            margin: 8px 32px;
+        }
+
+        .sidebar-links .link-gerenciar { color: rgba(201,168,76,0.65); margin-top: 4px; }
+        .sidebar-links .link-gerenciar:hover { color: var(--dourado); border-left-color: var(--dourado); }
+
+        /* HERO */
+        .hero {
+            padding: 5rem 2.5rem 4rem;
+            max-width: 860px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .hero-eyebrow {
+            font-size: 0.72rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--dourado);
+            margin-bottom: 1.4rem;
+        }
+
+        .hero h1 {
+            font-family: var(--fonte-display);
+            font-size: clamp(2.4rem, 6vw, 4rem);
+            font-weight: 600;
+            line-height: 1.15;
+            color: var(--branco);
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 span { color: var(--dourado); }
+
+        .hero-desc {
+            font-size: 1rem;
+            color: var(--cinza);
+            max-width: 620px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.8;
+        }
+
+        .hero-normas {
+            display: inline-flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 3rem;
+        }
+
+        .norma-badge {
+            background: rgba(201,168,76,0.1);
+            border: 1px solid rgba(201,168,76,0.35);
+            color: var(--dourado-claro);
+            font-size: 0.72rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            padding: 0.35rem 0.85rem;
+            border-radius: 2px;
+        }
+
+        .divider {
+            width: 48px;
+            height: 2px;
+            background: var(--dourado);
+            margin: 0 auto 4rem;
+            opacity: 0.6;
+        }
+
+        /* ETAPAS */
+        .etapas-section {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 0 2.5rem 5rem;
+        }
+
+        .section-label {
+            font-size: 0.7rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--dourado);
+            margin-bottom: 2.5rem;
+            text-align: center;
+        }
+
+        .etapas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.2rem;
+        }
+
+        .etapa-card {
+            background: rgba(27,58,92,0.3);
+            border: 1px solid rgba(201,168,76,0.15);
+            border-top: 2px solid var(--dourado);
+            padding: 1.8rem 1.6rem;
+            transition: border-color 0.2s, background 0.2s;
+        }
+
+        .etapa-card:hover {
+            background: rgba(27,58,92,0.5);
+            border-color: rgba(201,168,76,0.35);
+            border-top-color: var(--dourado);
+        }
+
+        .etapa-num {
+            font-family: var(--fonte-display);
+            font-size: 0.78rem;
+            letter-spacing: 0.18em;
+            color: var(--dourado);
+            text-transform: uppercase;
+            margin-bottom: 0.6rem;
+            display: block;
+        }
+
+        .etapa-titulo {
+            font-family: var(--fonte-display);
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--branco);
+            margin-bottom: 0.6rem;
+            line-height: 1.3;
+        }
+
+        .etapa-desc {
+            font-size: 0.82rem;
+            color: var(--cinza);
+            line-height: 1.6;
+        }
+
+        /* NOTAS */
+        .notas-section {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 0 2.5rem 5rem;
+        }
+
+        .notas-box {
+            background: rgba(27,58,92,0.25);
+            border-left: 3px solid var(--dourado);
+            padding: 2rem 2.2rem;
+        }
+
+        .notas-box p {
+            font-size: 0.83rem;
+            color: var(--cinza);
+            line-height: 1.75;
+            margin-bottom: 0.5rem;
+        }
+
+        .notas-box p:last-child { margin-bottom: 0; }
+        .notas-box strong { color: var(--dourado-claro); font-weight: 500; }
+
+        /* CTA */
+        .cta-section {
+            text-align: center;
+            padding: 3rem 2.5rem 5rem;
+            border-top: 1px solid rgba(201,168,76,0.15);
+            max-width: 860px;
+            margin: 0 auto;
+        }
+
+        .cta-produto {
+            font-family: var(--fonte-display);
+            font-size: 0.75rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--dourado);
+            margin-bottom: 1rem;
+        }
+
+        .cta-title {
+            font-family: var(--fonte-display);
+            font-size: clamp(1.5rem, 4vw, 2.2rem);
+            font-weight: 600;
+            color: var(--branco);
+            margin-bottom: 2rem;
+        }
+
+        .cta-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+        .btn-primary {
+            background: var(--dourado);
+            color: var(--azul-escuro);
+            padding: 0.85rem 2.2rem;
+            font-family: var(--fonte-corpo);
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: background 0.2s, transform 0.15s;
+        }
+
+        .btn-primary:hover { background: var(--dourado-claro); transform: translateY(-1px); }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--dourado);
+            padding: 0.85rem 2.2rem;
+            font-family: var(--fonte-corpo);
+            font-size: 0.8rem;
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            text-decoration: none;
+            border: 1px solid rgba(201,168,76,0.45);
+            transition: border-color 0.2s, color 0.2s;
+        }
+
+        .btn-secondary:hover { border-color: var(--dourado); color: var(--dourado-claro); }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid rgba(201,168,76,0.1);
+            font-size: 0.72rem;
+            color: var(--cinza);
+            letter-spacing: 0.08em;
+        }
+
+        footer a { color: var(--dourado); text-decoration: none; }
+
+        @media (max-width: 600px) {
+            nav { padding: 1rem 1.2rem; }
+            .hero { padding: 3.5rem 1.2rem 2.5rem; }
+            .etapas-section, .notas-section, .cta-section { padding-left: 1.2rem; padding-right: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="https://ambientai.app.br" class="nav-logo">AMBIENTAI</a>
+    <button class="hamburger" onclick="abrirMenu()" aria-label="Menu">
+        <span></span><span></span><span></span>
+    </button>
+</nav>
+
+<!-- OVERLAY -->
+<div class="menu-overlay" id="overlay" onclick="fecharMenu()"></div>
+
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <a href="https://ambientai.app.br" class="sidebar-logo">AMBIENT<span>AI</span></a>
+        <button class="btn-fechar" onclick="fecharMenu()">✕</button>
+    </div>
+    <div class="sidebar-links">
+        <a href="https://ambientai.app.br/ventilar.html" class="link-ventilar">VENTILAR</a>
+        <a href="https://ambientai.app.br/solnajanela.html" class="link-sol">SOL NA JANELA</a>
+        <a href="https://ambientai.app.br/acustica.html" class="link-acustica">ACÚSTICA URBANA</a>
+        <div class="sidebar-divider"></div>
+        <a href="https://ambientai.app.br#sobre" class="link-sobre">SOBRE A AMBIENTAI</a>
+        <div class="sidebar-divider"></div>
+        <a href="https://billing.stripe.com/p/login/5kQ7sNcggdnVfso1QEeME00" class="link-gerenciar" target="_blank">GERENCIAR ASSINATURA</a>
+    </div>
+</div>
+
+<script>
+    function abrirMenu() {
+        document.getElementById('sidebar').classList.add('aberto');
+        document.getElementById('overlay').classList.add('aberto');
+        document.body.style.overflow = 'hidden';
+    }
+    function fecharMenu() {
+        document.getElementById('sidebar').classList.remove('aberto');
+        document.getElementById('overlay').classList.remove('aberto');
+        document.body.style.overflow = '';
+    }
+</script>
+
+<section class="hero">
+    <p class="hero-eyebrow">Ferramenta AMBIENTAI</p>
+    <h1>Acústica de Ambientes<br>em <span>Área Urbana</span></h1>
+    <p class="hero-desc">Avalie o desempenho acústico de ambientes construídos considerando o ruído do tráfego veicular — da via até o interior do ambiente, em 7 etapas de análise.</p>
+    <div class="hero-normas">
+        <span class="norma-badge">NBR 10152:2017</span>
+        <span class="norma-badge">NBR 15575-4:2021</span>
+    </div>
+    <div class="divider"></div>
+</section>
+
+<section class="etapas-section">
+    <p class="section-label">Metodologia em 7 Etapas</p>
+    <div class="etapas-grid">
+        <div class="etapa-card">
+            <span class="etapa-num">Etapa 01</span>
+            <div class="etapa-titulo">Sistema Viário</div>
+            <p class="etapa-desc">Tipo de via, largura da pista, distância ao eixo, volume e velocidade do tráfego, percentual de veículos pesados, inclinação e barreiras acústicas.</p>
+        </div>
+        <div class="etapa-card">
+            <span class="etapa-num">Etapa 02</span>
+            <div class="etapa-titulo">Geometria do Ambiente</div>
+            <p class="etapa-desc">Caracterização do espaço a ser avaliado: pé-direito, profundidade e largura do ambiente.</p>
+        </div>
+        <div class="etapa-card">
+            <span class="etapa-num">Etapa 03</span>
+            <div class="etapa-titulo">Materiais de Fachada</div>
+            <p class="etapa-desc">Identificação dos materiais da fachada e seu isolamento acústico, com lista de referência incorporada ao programa.</p>
+        </div>
+        <div class="etapa-card">
+            <span class="etapa-num">Etapa 04</span>
+            <div class="etapa-titulo">Revestimentos Internos</div>
+            <p class="etapa-desc">Caracterização dos materiais de revestimento interno e suas propriedades de absorção acústica.</p>
+        </div>
+        <div class="etapa-card">
+            <span class="etapa-num">Etapa 05</span>
+            <div class="etapa-titulo">Nível de Pressão Sonora</div>
+            <p class="etapa-desc">Cálculo do NPS [dB] na borda da calçada, na face externa e interna da fachada e no interior do ambiente.</p>
+        </div>
+        <div class="etapa-card">
+            <span class="etapa-num">Etapa 06</span>
+            <div class="etapa-titulo">Limites de Conforto</div>
+            <p class="etapa-desc">Identificação dos limites de conforto acústico conforme a NBR 10152:2017, aplicados ao tipo de ambiente avaliado.</p>
+        </div>
+        <div class="etapa-card">
+            <span class="etapa-num">Etapa 07</span>
+            <div class="etapa-titulo">Resultado do Desempenho</div>
+            <p class="etapa-desc">Resultado final da avaliação acústica do ambiente — aprovação ou indicação de intervenções para adequação ao conforto.</p>
+        </div>
+    </div>
+</section>
+
+<section class="notas-section">
+    <p class="section-label">Informações Técnicas</p>
+    <div class="notas-box">
+        <p><strong>Configuração geométrica:</strong> O software pressupõe paralelismo entre a edificação e a via de tráfego.</p>
+        <p><strong>Normas de referência:</strong> NBR 10152:2017 e NBR 15575-4:2021.</p>
+        <p><strong>Dados de tráfego:</strong> As características do tráfego local podem ser obtidas junto aos órgãos municipais de trânsito — CET-SP, CET-Rio, BHTrans, EPTC-POA, URBS-Curitiba, STTU-Natal, entre outros.</p>
+        <p><strong>Materiais de construção:</strong> O programa inclui duas listas de materiais (isolantes e absorvedores acústicos). Materiais não listados podem ser consultados diretamente com fabricantes e incorporados às listas existentes.</p>
+        <p><strong>Destinação:</strong> Ferramenta de apoio ao desenvolvimento e avaliação de projetos arquitetônicos, destinada a profissionais e estudantes da área da construção civil.</p>
+    </div>
+</section>
+
+<section class="cta-section">
+    <p class="cta-produto">AMBIENTAI</p>
+    <h2 class="cta-title">ACÚSTICA DE AMBIENTES EM ÁREA URBANA</h2>
+    <div class="cta-buttons">
+        <a href="https://ambientai.app.br/planos-acustica.html" class="btn-primary">Ver Planos e Assinar</a>
+        <a href="https://acustica-saas.onrender.com" class="btn-secondary" target="_blank">Já tenho acesso</a>
+    </div>
+</section>
+
+<footer>
+    <p>© 2026 <a href="https://ambientai.app.br">AMBIENTAI</a> — Tecnologia da Arquitetura</p>
+</footer>
+
+</body>
+</html>
