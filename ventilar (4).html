@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VENTILAR — AMBIENTAI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --azul-escuro: #0d1b2a;
+            --azul-medio: #1b3a5c;
+            --azul-claro: #2e6da4;
+            --dourado: #c9a84c;
+            --dourado-claro: #f0d080;
+            --branco: #f8f8f6;
+            --cinza-claro: #e8e8e4;
+            --cinza-texto: #555;
+            --fonte-display: 'Cormorant Garamond', serif;
+            --fonte-corpo: 'Inter', sans-serif;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: var(--azul-escuro);
+            color: var(--branco);
+            font-family: var(--fonte-corpo);
+            font-weight: 300;
+            line-height: 1.7;
+        }
+
+        /* HEADER */
+        header {
+            background: var(--azul-escuro);
+            border-bottom: 1px solid rgba(201, 168, 76, 0.3);
+            padding: 1.2rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-header {
+            font-family: var(--fonte-display);
+            font-size: 1.4rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            color: var(--branco);
+            text-decoration: none;
+        }
+
+        .logo-header span { color: var(--dourado); }
+
+        /* HAMBURGUER */
+        .hamburger {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 6px;
+            background: none;
+            border: none;
+            z-index: 200;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 1.5px;
+            background: rgba(255,255,255,0.7);
+            transition: all 0.3s;
+        }
+
+        .hamburger:hover span { background: white; }
+
+        /* OVERLAY */
+        .menu-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.45);
+            z-index: 150;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+        .menu-overlay.aberto { opacity: 1; pointer-events: all; }
+
+        /* SIDEBAR */
+        .sidebar {
+            position: fixed;
+            top: 0; right: 0;
+            width: 280px;
+            height: 100vh;
+            background: rgba(6, 17, 31, 0.98);
+            backdrop-filter: blur(12px);
+            border-left: 1px solid rgba(201,168,76,0.15);
+            z-index: 160;
+            transform: translateX(100%);
+            transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+            display: flex;
+            flex-direction: column;
+            padding: 32px 0;
+        }
+        .sidebar.aberto { transform: translateX(0); }
+
+        .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 32px 28px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .sidebar-logo {
+            font-family: var(--fonte-display);
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: white;
+            letter-spacing: 4px;
+            text-decoration: none;
+        }
+        .sidebar-logo span { color: var(--dourado); }
+
+        .btn-fechar {
+            background: none;
+            border: none;
+            color: rgba(255,255,255,0.45);
+            font-size: 1.4rem;
+            cursor: pointer;
+            padding: 4px;
+            transition: color 0.2s;
+            line-height: 1;
+        }
+        .btn-fechar:hover { color: white; }
+
+        .sidebar-links {
+            display: flex;
+            flex-direction: column;
+            padding: 20px 0;
+        }
+
+        .sidebar-links a {
+            display: block;
+            padding: 13px 32px;
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-size: 0.76rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border-left: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .sidebar-links a:hover {
+            color: white;
+            background: rgba(255,255,255,0.04);
+            padding-left: 38px;
+        }
+
+        .sidebar-links .link-ventilar:hover { border-left-color: #2d6a9f; }
+        .sidebar-links .link-sol:hover { border-left-color: var(--dourado); }
+        .sidebar-links .link-acustica:hover { border-left-color: #2d7a5f; }
+
+        .sidebar-divider {
+            height: 1px;
+            background: rgba(255,255,255,0.06);
+            margin: 8px 32px;
+        }
+
+        .sidebar-links .link-gerenciar { color: rgba(201,168,76,0.65); margin-top: 4px; }
+        .sidebar-links .link-gerenciar:hover { color: var(--dourado); border-left-color: var(--dourado); }
+
+        /* HERO */
+        .hero {
+            min-height: 60vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 5rem 2rem 4rem;
+            background: linear-gradient(160deg, #0d1b2a 0%, #1b3a5c 60%, #0d1b2a 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 50% 0%, rgba(201,168,76,0.08) 0%, transparent 70%);
+        }
+
+        .hero-eyebrow {
+            font-size: 0.75rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--dourado);
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .hero h1 {
+            font-family: var(--fonte-display);
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 700;
+            line-height: 1;
+            letter-spacing: -0.01em;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .hero h1 span {
+            color: var(--dourado);
+            display: block;
+            font-size: 0.45em;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-subtitulo {
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+            color: rgba(248,248,246,0.7);
+            max-width: 600px;
+            margin: 1.5rem auto 0;
+            font-weight: 300;
+        }
+
+        .linha-dourada {
+            width: 60px;
+            height: 2px;
+            background: var(--dourado);
+            margin: 2rem auto;
+        }
+
+        /* SEÇÕES */
+        .secao {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .secao + .secao {
+            border-top: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .secao-titulo {
+            font-family: var(--fonte-display);
+            font-size: clamp(1.6rem, 4vw, 2.2rem);
+            font-weight: 600;
+            color: var(--dourado-claro);
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.02em;
+        }
+
+        .secao-texto {
+            color: rgba(248,248,246,0.82);
+            font-size: 0.97rem;
+            line-height: 1.85;
+        }
+
+        .secao-texto p { margin-bottom: 1rem; }
+
+        .destaque {
+            background: rgba(201,168,76,0.08);
+            border-left: 3px solid var(--dourado);
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 6px 6px 0;
+            font-size: 0.95rem;
+            color: rgba(248,248,246,0.85);
+        }
+
+        .grade-metodos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .card-metodo {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(201,168,76,0.2);
+            border-radius: 8px;
+            padding: 1.8rem;
+            transition: border-color 0.3s, background 0.3s;
+        }
+
+        .card-metodo:hover {
+            border-color: rgba(201,168,76,0.5);
+            background: rgba(255,255,255,0.06);
+        }
+
+        .card-metodo .icone {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .card-metodo h3 {
+            font-family: var(--fonte-display);
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--dourado-claro);
+            margin-bottom: 0.8rem;
+        }
+
+        .card-metodo p {
+            font-size: 0.88rem;
+            color: rgba(248,248,246,0.72);
+            line-height: 1.7;
+        }
+
+        .formula {
+            font-family: 'Georgia', serif;
+            font-size: 1.1rem;
+            color: var(--dourado);
+            margin-top: 0.8rem;
+            font-style: italic;
+        }
+
+        .grade-aberturas {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .lista-abertura {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+
+        .lista-abertura h3 {
+            font-family: var(--fonte-display);
+            font-size: 1.1rem;
+            color: var(--dourado-claro);
+            margin-bottom: 1rem;
+        }
+
+        .lista-abertura ul { list-style: none; padding: 0; }
+
+        .lista-abertura ul li {
+            font-size: 0.88rem;
+            color: rgba(248,248,246,0.75);
+            padding: 0.3rem 0;
+            padding-left: 1.2rem;
+            position: relative;
+        }
+
+        .lista-abertura ul li::before {
+            content: '—';
+            position: absolute;
+            left: 0;
+            color: var(--dourado);
+        }
+
+        .grade-orientacoes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .item-orientacao { display: flex; gap: 0.8rem; align-items: flex-start; }
+
+        .item-orientacao .num {
+            color: var(--dourado);
+            font-family: var(--fonte-display);
+            font-size: 1.4rem;
+            font-weight: 700;
+            line-height: 1;
+            flex-shrink: 0;
+            margin-top: 0.1rem;
+        }
+
+        .item-orientacao p {
+            font-size: 0.88rem;
+            color: rgba(248,248,246,0.75);
+            line-height: 1.6;
+        }
+
+        .alerta {
+            background: rgba(255,200,50,0.06);
+            border: 1px solid rgba(255,200,50,0.25);
+            border-radius: 8px;
+            padding: 1.2rem 1.5rem;
+            font-size: 0.9rem;
+            color: rgba(248,248,246,0.82);
+            margin-top: 1.5rem;
+        }
+
+        .cta-final {
+            background: linear-gradient(160deg, #1b3a5c 0%, #0d1b2a 100%);
+            border-top: 1px solid rgba(201,168,76,0.3);
+            text-align: center;
+            padding: 5rem 2rem;
+        }
+
+        .cta-final h2 {
+            font-family: var(--fonte-display);
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .cta-final p {
+            color: rgba(248,248,246,0.65);
+            font-size: 1rem;
+            margin-bottom: 2.5rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .botoes-cta { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+        .btn-primario {
+            background: var(--dourado);
+            color: var(--azul-escuro);
+            font-family: var(--fonte-corpo);
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 1rem 2.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: background 0.2s, transform 0.15s;
+        }
+
+        .btn-primario:hover { background: var(--dourado-claro); transform: translateY(-2px); }
+
+        .btn-secundario {
+            border: 1px solid rgba(201,168,76,0.5);
+            color: var(--dourado-claro);
+            font-family: var(--fonte-corpo);
+            font-size: 0.9rem;
+            font-weight: 400;
+            letter-spacing: 0.06em;
+            padding: 1rem 2.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: border-color 0.2s, background 0.2s;
+        }
+
+        .btn-secundario:hover { border-color: var(--dourado); background: rgba(201,168,76,0.08); }
+
+        footer {
+            background: #080f18;
+            text-align: center;
+            padding: 1.5rem;
+            font-size: 0.78rem;
+            color: rgba(248,248,246,0.3);
+            letter-spacing: 0.05em;
+        }
+
+        @media (max-width: 640px) {
+            .grade-aberturas { grid-template-columns: 1fr; }
+        }
+
+        @media (prefers-reduced-motion: no-preference) {
+            .card-metodo, .lista-abertura {
+                opacity: 0;
+                transform: translateY(16px);
+                animation: aparecer 0.5s ease forwards;
+            }
+            .card-metodo:nth-child(2) { animation-delay: 0.1s; }
+            .card-metodo:nth-child(3) { animation-delay: 0.2s; }
+            @keyframes aparecer { to { opacity: 1; transform: translateY(0); } }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <a href="https://ambientai.app.br" class="logo-header">AMBIENT<span>AI</span></a>
+        <button class="hamburger" onclick="abrirMenu()" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+    </header>
+
+    <!-- OVERLAY -->
+    <div class="menu-overlay" id="overlay" onclick="fecharMenu()"></div>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="https://ambientai.app.br" class="sidebar-logo">AMBIENT<span>AI</span></a>
+            <button class="btn-fechar" onclick="fecharMenu()">✕</button>
+        </div>
+        <div class="sidebar-links">
+            <a href="https://ambientai.app.br/ventilar.html" class="link-ventilar">VENTILAR</a>
+            <a href="https://ambientai.app.br/solnajanela.html" class="link-sol">SOL NA JANELA</a>
+            <a href="https://ambientai.app.br/acustica.html" class="link-acustica">ACÚSTICA URBANA</a>
+            <div class="sidebar-divider"></div>
+            <a href="https://ambientai.app.br#sobre" class="link-sobre">SOBRE A AMBIENTAI</a>
+            <div class="sidebar-divider"></div>
+            <a href="https://billing.stripe.com/p/login/5kQ7sNcggdnVfso1QEeME00" class="link-gerenciar" target="_blank">GERENCIAR ASSINATURA</a>
+        </div>
+    </div>
+
+    <script>
+        function abrirMenu() {
+            document.getElementById('sidebar').classList.add('aberto');
+            document.getElementById('overlay').classList.add('aberto');
+            document.body.style.overflow = 'hidden';
+        }
+        function fecharMenu() {
+            document.getElementById('sidebar').classList.remove('aberto');
+            document.getElementById('overlay').classList.remove('aberto');
+            document.body.style.overflow = '';
+        }
+    </script>
+
+    <!-- HERO -->
+    <section class="hero">
+        <p class="hero-eyebrow">AMBIENTAI — Tecnologia da Arquitetura</p>
+        <h1>
+            <span>Programa</span>
+            VENTILAR
+        </h1>
+        <div class="linha-dourada"></div>
+        <p class="hero-subtitulo">
+            Ferramenta de apoio ao projeto arquitetônico para verificação
+            da ventilação natural segundo a NBR 16401-3.
+        </p>
+    </section>
+
+    <!-- OBJETIVO -->
+    <section class="secao">
+        <h2 class="secao-titulo">Objetivo</h2>
+        <div class="secao-texto">
+            <p>O VENTILAR verifica se as taxas de renovação do ar de um dado ambiente (m³/hora/pessoa) atendem os valores mínimos estabelecidos pela <strong>NBR 16401-3: Taxas Mínimas de Ar Externo — Ventilação Higiênica</strong>.</p>
+            <p>Para isso, o programa calcula a taxa de vazão de ar externo decorrente do efeito do vento na edificação e do efeito da diferença de temperatura do ar entre o interior e o exterior do ambiente — efeito chamado <strong>"Chaminé"</strong>.</p>
+            <div class="destaque">
+                As taxas de ventilação da NBR 16401-3 referem-se às condições higiênicas dos ambientes, mas não garantem a sensação de conforto térmico dos usuários. O método de cálculo para conforto térmico não está contemplado neste programa.
+            </div>
+        </div>
+    </section>
+
+    <!-- MÉTODOS -->
+    <section class="secao">
+        <h2 class="secao-titulo">Métodos de Cálculo</h2>
+        <div class="grade-metodos">
+            <div class="card-metodo">
+                <span class="icone">💨</span>
+                <h3>Efeito do Vento</h3>
+                <p>Cálculo da vazão de ar induzida pelos ventos nas aberturas da edificação, considerando direção predominante, coeficientes de pressão (Cp), rugosidade do entorno urbano, área livre das aberturas e diferença angular entre direção do vento e azimute de cada abertura.</p>
+            </div>
+            <div class="card-metodo">
+                <span class="icone">🔥</span>
+                <h3>Efeito Chaminé</h3>
+                <p>Cálculo da movimentação natural do ar provocada por diferenças de temperatura e densidade entre ambientes internos e externos, considerando altura das aberturas, posição da zona neutra (ZN) e coeficiente de descarga.</p>
+            </div>
+            <div class="card-metodo">
+                <span class="icone">⚡</span>
+                <h3>Efeito Combinado</h3>
+                <p>Avaliação simultânea dos dois efeitos por composição quadrática das vazões, estimando o desempenho global da ventilação natural.</p>
+                <p class="formula">Q = √(Q²<sub>vento</sub> + Q²<sub>chaminé</sub>)</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABERTURAS -->
+    <section class="secao">
+        <h2 class="secao-titulo">Definição das Aberturas</h2>
+        <div class="secao-texto">
+            <p>Cada abertura é definida pelos seguintes parâmetros:</p>
+        </div>
+        <div class="grade-aberturas">
+            <div class="lista-abertura">
+                <h3>Parâmetros de entrada</h3>
+                <ul>
+                    <li>Tipo da abertura (lateral ou zenital)</li>
+                    <li>Largura (m)</li>
+                    <li>Altura da borda inferior — Hi (m)</li>
+                    <li>Altura da borda superior — Hs (m)</li>
+                    <li>Azimute (direção em relação ao Norte)</li>
+                    <li>Eficiência da abertura (% da área livre)</li>
+                </ul>
+            </div>
+            <div class="lista-abertura">
+                <h3>Tipos de abertura</h3>
+                <ul>
+                    <li><strong style="color:var(--dourado-claro)">Laterais</strong> — janelas ou portas nas fachadas</li>
+                    <li><strong style="color:var(--dourado-claro)">Zenitais</strong> — lanternins, sheds, claraboias, elementos próximos à cobertura para exaustão do ar aquecido</li>
+                    <li>Para aberturas zenitais, recomenda-se utilizar as alturas reais em relação ao piso</li>
+                </ul>
+            </div>
+        </div>
+        <div class="alerta">
+            ⚠️ <strong>Atenção:</strong> Considera-se incidência significativa de vento quando o ângulo entre a direção do vento e o azimute da abertura é ≤ 45°. Num ambiente com uma única abertura, a ventilação por efeito de vento será <strong>zero</strong>, independente da direção — nesses casos prevalece o efeito chaminé.
+        </div>
+    </section>
+
+    <!-- ORIENTAÇÕES -->
+    <section class="secao">
+        <h2 class="secao-titulo">Como Usar o Programa</h2>
+        <div class="grade-orientacoes">
+            <div class="item-orientacao">
+                <span class="num">01</span>
+                <p>Siga a sequência indicada pelo programa, etapa por etapa.</p>
+            </div>
+            <div class="item-orientacao">
+                <span class="num">02</span>
+                <p>Use o botão <strong>Salvar</strong> ao final de cada etapa antes de avançar.</p>
+            </div>
+            <div class="item-orientacao">
+                <span class="num">03</span>
+                <p>É possível retornar às etapas anteriores para revisão ou correção a qualquer momento.</p>
+            </div>
+            <div class="item-orientacao">
+                <span class="num">04</span>
+                <p>Base climática inclui as capitais brasileiras e o Distrito Federal. Para outras cidades, use o campo <strong>Inserir nova cidade</strong>.</p>
+            </div>
+            <div class="item-orientacao">
+                <span class="num">05</span>
+                <p>O programa gera um <strong>relatório final</strong> com todos os dados de entrada, cálculos e verificação da NBR 16401-3.</p>
+            </div>
+            <div class="item-orientacao">
+                <span class="num">06</span>
+                <p>O relatório pode ser <strong>exportado em PDF</strong> para uso em projetos e laudos.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA FINAL -->
+    <section class="cta-final">
+        <h2>Pronto para começar?</h2>
+        <p>Escolha o plano ideal para o seu escritório e acesse o VENTILAR agora.</p>
+        <div class="botoes-cta">
+            <a href="https://ambientai.app.br/planos-ventilar.html" class="btn-primario">Ver Planos e Assinar</a>
+            <a href="https://ventilar.streamlit.app" class="btn-secundario" target="_blank">Já tenho acesso</a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        © 2026 AMBIENTAI — Tecnologia da Arquitetura &nbsp;|&nbsp; tecnologianaarquitetura@gmail.com
+    </footer>
+
+</body>
+</html>
