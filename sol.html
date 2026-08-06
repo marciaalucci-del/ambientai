@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VENTILAR — AMBIENTAI</title>
+    <title>SOL NA JANELA — AMBIENTAI</title>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -11,12 +11,10 @@
         :root {
             --azul-escuro: #0d1b2a;
             --azul-medio: #1b3a5c;
-            --azul-claro: #2e6da4;
             --dourado: #c9a84c;
             --dourado-claro: #f0d080;
             --branco: #f8f8f6;
             --cinza-claro: #e8e8e4;
-            --cinza-texto: #555;
             --fonte-display: 'Cormorant Garamond', serif;
             --fonte-corpo: 'Inter', sans-serif;
         }
@@ -31,7 +29,6 @@
             line-height: 1.7;
         }
 
-        /* HEADER */
         header {
             background: var(--azul-escuro);
             border-bottom: 1px solid rgba(201, 168, 76, 0.3);
@@ -67,7 +64,6 @@
 
         nav a:hover { color: var(--dourado); }
 
-        /* HERO */
         .hero {
             min-height: 60vh;
             display: flex;
@@ -76,7 +72,7 @@
             justify-content: center;
             text-align: center;
             padding: 5rem 2rem 4rem;
-            background: linear-gradient(160deg, #0d1b2a 0%, #1b3a5c 60%, #0d1b2a 100%);
+            background: linear-gradient(160deg, #0d1b2a 0%, #4a3a14 60%, #0d1b2a 100%);
             position: relative;
             overflow: hidden;
         }
@@ -85,7 +81,7 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: radial-gradient(ellipse at 50% 0%, rgba(201,168,76,0.08) 0%, transparent 70%);
+            background: radial-gradient(ellipse at 50% 0%, rgba(255,215,0,0.10) 0%, transparent 70%);
         }
 
         .hero-eyebrow {
@@ -99,7 +95,7 @@
 
         .hero h1 {
             font-family: var(--fonte-display);
-            font-size: clamp(3rem, 8vw, 6rem);
+            font-size: clamp(2.4rem, 8vw, 5rem);
             font-weight: 700;
             line-height: 1;
             letter-spacing: -0.01em;
@@ -132,16 +128,13 @@
             margin: 2rem auto;
         }
 
-        /* SEÇÕES */
         .secao {
             max-width: 900px;
             margin: 0 auto;
             padding: 4rem 2rem;
         }
 
-        .secao + .secao {
-            border-top: 1px solid rgba(255,255,255,0.08);
-        }
+        .secao + .secao { border-top: 1px solid rgba(255,255,255,0.08); }
 
         .secao-titulo {
             font-family: var(--fonte-display);
@@ -170,7 +163,6 @@
             color: rgba(248,248,246,0.85);
         }
 
-        /* GRADE DE MÉTODOS */
         .grade-metodos {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -211,57 +203,6 @@
             line-height: 1.7;
         }
 
-        .formula {
-            font-family: 'Georgia', serif;
-            font-size: 1.1rem;
-            color: var(--dourado);
-            margin-top: 0.8rem;
-            font-style: italic;
-        }
-
-        /* LISTA DE ABERTURAS */
-        .grade-aberturas {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-            margin-top: 1.5rem;
-        }
-
-        .lista-abertura {
-            background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 8px;
-            padding: 1.5rem;
-        }
-
-        .lista-abertura h3 {
-            font-family: var(--fonte-display);
-            font-size: 1.1rem;
-            color: var(--dourado-claro);
-            margin-bottom: 1rem;
-        }
-
-        .lista-abertura ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .lista-abertura ul li {
-            font-size: 0.88rem;
-            color: rgba(248,248,246,0.75);
-            padding: 0.3rem 0;
-            padding-left: 1.2rem;
-            position: relative;
-        }
-
-        .lista-abertura ul li::before {
-            content: '—';
-            position: absolute;
-            left: 0;
-            color: var(--dourado);
-        }
-
-        /* ORIENTAÇÕES */
         .grade-orientacoes {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -291,7 +232,6 @@
             line-height: 1.6;
         }
 
-        /* ALERTA */
         .alerta {
             background: rgba(255,200,50,0.06);
             border: 1px solid rgba(255,200,50,0.25);
@@ -302,9 +242,8 @@
             margin-top: 1.5rem;
         }
 
-        /* CTA FINAL */
         .cta-final {
-            background: linear-gradient(160deg, #1b3a5c 0%, #0d1b2a 100%);
+            background: linear-gradient(160deg, #4a3a14 0%, #0d1b2a 100%);
             border-top: 1px solid rgba(201,168,76,0.3);
             text-align: center;
             padding: 5rem 2rem;
@@ -370,7 +309,6 @@
             background: rgba(201,168,76,0.08);
         }
 
-        /* FOOTER */
         footer {
             background: #080f18;
             text-align: center;
@@ -380,15 +318,14 @@
             letter-spacing: 0.05em;
         }
 
-        /* RESPONSIVO */
+        footer a { color: rgba(248,248,246,0.45); }
+
         @media (max-width: 640px) {
-            .grade-aberturas { grid-template-columns: 1fr; }
             nav { display: none; }
         }
 
-        /* ANIMAÇÃO SUAVE */
         @media (prefers-reduced-motion: no-preference) {
-            .card-metodo, .lista-abertura {
+            .card-metodo {
                 opacity: 0;
                 transform: translateY(16px);
                 animation: aparecer 0.5s ease forwards;
@@ -410,7 +347,7 @@
         <nav>
             <a href="https://ambientai.app.br">Início</a>
             <a href="https://ambientai.app.br#planos">Planos</a>
-            <a href="https://ventilar.streamlit.app" target="_blank">Acessar</a>
+            <a href="https://solnajanela.streamlit.app" target="_blank">Acessar</a>
         </nav>
     </header>
 
@@ -419,12 +356,12 @@
         <p class="hero-eyebrow">AMBIENTAI — Tecnologia da Arquitetura</p>
         <h1>
             <span>Programa</span>
-            VENTILAR
+            ☀️ SOL NA JANELA
         </h1>
         <div class="linha-dourada"></div>
         <p class="hero-subtitulo">
-            Ferramenta de apoio ao projeto arquitetônico para verificação
-            da ventilação natural segundo a NBR 16401-3.
+            Identifique os horários do dia e os meses do ano em que há
+            incidência de sol direto em uma dada janela, em qualquer cidade.
         </p>
     </section>
 
@@ -433,139 +370,100 @@
         <h2 class="secao-titulo">Objetivo</h2>
         <div class="secao-texto">
             <p>
-                O VENTILAR verifica se as taxas de renovação do ar de um dado ambiente
-                (m³/hora/pessoa) atendem os valores mínimos estabelecidos pela
-                <strong>NBR 16401-3: Taxas Mínimas de Ar Externo — Ventilação Higiênica</strong>.
+                O SOL NA JANELA calcula os períodos de sol em uma janela ao longo do ano
+                e durante as horas do dia, auxiliando decisões de projeto sobre
+                <strong>proteção solar, conforto térmico e aproveitamento da luz natural</strong>.
             </p>
             <p>
-                Para isso, o programa calcula a taxa de vazão de ar externo decorrente
-                do efeito do vento na edificação e do efeito da diferença de temperatura
-                do ar entre o interior e o exterior do ambiente — efeito chamado <strong>"Chaminé"</strong>.
+                Para esse cálculo são necessárias apenas duas informações: a
+                <strong>cidade</strong> onde se localiza a edificação e a
+                <strong>orientação da janela (azimute)</strong> em relação ao Norte
+                indicado no projeto arquitetônico.
             </p>
             <div class="destaque">
-                As taxas de ventilação da NBR 16401-3 referem-se às condições higiênicas
-                dos ambientes, mas não garantem a sensação de conforto térmico dos usuários.
-                O método de cálculo para conforto térmico não está contemplado neste programa.
+                O resultado é um quadro-resumo que mostra, hora a hora (das 5h às 19h)
+                e mês a mês, quando o sol incide diretamente na janela estudada.
             </div>
         </div>
     </section>
 
     <!-- MÉTODOS -->
     <section class="secao">
-        <h2 class="secao-titulo">Métodos de Cálculo</h2>
+        <h2 class="secao-titulo">Método de Cálculo</h2>
         <div class="grade-metodos">
             <div class="card-metodo">
-                <span class="icone">💨</span>
-                <h3>Efeito do Vento</h3>
+                <span class="icone">🌍</span>
+                <h3>Geometria Solar</h3>
                 <p>
-                    Cálculo da vazão de ar induzida pelos ventos nas aberturas da edificação,
-                    considerando direção predominante, coeficientes de pressão (Cp),
-                    rugosidade do entorno urbano, área livre das aberturas e diferença
-                    angular entre direção do vento e azimute de cada abertura.
+                    Cálculo da declinação solar para o dia representativo de cada mês
+                    e da posição do sol (altura e azimute) hora a hora, a partir da
+                    latitude da cidade escolhida.
                 </p>
             </div>
             <div class="card-metodo">
-                <span class="icone">🔥</span>
-                <h3>Efeito Chaminé</h3>
+                <span class="icone">🧭</span>
+                <h3>Orientação da Janela</h3>
                 <p>
-                    Cálculo da movimentação natural do ar provocada por diferenças de
-                    temperatura e densidade entre ambientes internos e externos,
-                    considerando altura das aberturas, posição da zona neutra (ZN)
-                    e coeficiente de descarga.
+                    Comparação entre o azimute do sol e o azimute da janela: há
+                    incidência de sol direto quando o sol está acima do horizonte e
+                    dentro do campo de visão da janela (±90° do azimute).
                 </p>
             </div>
             <div class="card-metodo">
-                <span class="icone">⚡</span>
-                <h3>Efeito Combinado</h3>
+                <span class="icone">🏙️</span>
+                <h3>Base de Cidades</h3>
                 <p>
-                    Avaliação simultânea dos dois efeitos por composição quadrática
-                    das vazões, estimando o desempenho global da ventilação natural.
+                    64 cidades brasileiras com latitudes já cadastradas. Caso a cidade
+                    desejada não conste da lista, é possível incluir uma nova cidade
+                    informando apenas a latitude.
                 </p>
-                <p class="formula">Q = √(Q²<sub>vento</sub> + Q²<sub>chaminé</sub>)</p>
             </div>
         </div>
     </section>
 
-    <!-- ABERTURAS -->
-    <section class="secao">
-        <h2 class="secao-titulo">Definição das Aberturas</h2>
-        <div class="secao-texto">
-            <p>Cada abertura é definida pelos seguintes parâmetros:</p>
-        </div>
-        <div class="grade-aberturas">
-            <div class="lista-abertura">
-                <h3>Parâmetros de entrada</h3>
-                <ul>
-                    <li>Tipo da abertura (lateral ou zenital)</li>
-                    <li>Largura (m)</li>
-                    <li>Altura da borda inferior — Hi (m)</li>
-                    <li>Altura da borda superior — Hs (m)</li>
-                    <li>Azimute (direção em relação ao Norte)</li>
-                    <li>Eficiência da abertura (% da área livre)</li>
-                </ul>
-            </div>
-            <div class="lista-abertura">
-                <h3>Tipos de abertura</h3>
-                <ul>
-                    <li><strong style="color:var(--dourado-claro)">Laterais</strong> — janelas ou portas nas fachadas</li>
-                    <li><strong style="color:var(--dourado-claro)">Zenitais</strong> — lanternins, sheds, claraboias, elementos próximos à cobertura para exaustão do ar aquecido</li>
-                    <li>Para aberturas zenitais, recomenda-se utilizar as alturas reais em relação ao piso</li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="alerta">
-            ⚠️ <strong>Atenção:</strong> Considera-se incidência significativa de vento quando
-            o ângulo entre a direção do vento e o azimute da abertura é ≤ 45°.
-            Num ambiente com uma única abertura, a ventilação por efeito de vento será
-            <strong>zero</strong>, independente da direção — nesses casos prevalece o efeito chaminé.
-        </div>
-    </section>
-
-    <!-- ORIENTAÇÕES -->
+    <!-- COMO USAR -->
     <section class="secao">
         <h2 class="secao-titulo">Como Usar o Programa</h2>
         <div class="grade-orientacoes">
             <div class="item-orientacao">
                 <span class="num">01</span>
-                <p>Siga a sequência indicada pelo programa, etapa por etapa.</p>
+                <p><strong>Passo 1:</strong> escolha a cidade na lista sugerida — ou inclua uma nova cidade com a correspondente latitude.</p>
             </div>
             <div class="item-orientacao">
                 <span class="num">02</span>
-                <p>Use o botão <strong>Salvar</strong> ao final de cada etapa antes de avançar.</p>
+                <p><strong>Passo 2:</strong> indique o azimute da janela em relação ao Norte do projeto (Norte = 0°, Leste = 90°, Sul = 180°, Oeste = 270°).</p>
             </div>
             <div class="item-orientacao">
                 <span class="num">03</span>
-                <p>É possível retornar às etapas anteriores para revisão ou correção a qualquer momento.</p>
+                <p>O quadro-resumo é atualizado instantaneamente: células marcadas com <strong>sol</strong> indicam incidência direta naquela hora e mês.</p>
             </div>
             <div class="item-orientacao">
                 <span class="num">04</span>
-                <p>Base climática inclui as capitais brasileiras e o Distrito Federal. Para outras cidades, use o campo <strong>Inserir nova cidade</strong>.</p>
+                <p>Consulte também o resumo da <strong>primeira e última hora de sol</strong> em cada mês do ano.</p>
             </div>
-            <div class="item-orientacao">
-                <span class="num">05</span>
-                <p>O programa gera um <strong>relatório final</strong> com todos os dados de entrada, cálculos e verificação da NBR 16401-3.</p>
-            </div>
-            <div class="item-orientacao">
-                <span class="num">06</span>
-                <p>O relatório pode ser <strong>exportado em PDF</strong> para uso em projetos e laudos.</p>
-            </div>
+        </div>
+
+        <div class="alerta">
+            ☀️ <strong>Aplicações:</strong> dimensionamento de brises e proteções solares,
+            escolha da orientação de dormitórios e áreas de estar, avaliação de ganho
+            solar em fachadas envidraçadas e estudos de insolação para aprovação de projetos.
         </div>
     </section>
 
     <!-- CTA FINAL -->
     <section class="cta-final">
         <h2>Pronto para começar?</h2>
-        <p>Escolha o plano ideal para o seu escritório e acesse o VENTILAR agora.</p>
+        <p>Assine a AMBIENTAI e acesse o SOL NA JANELA e todas as ferramentas da suite.</p>
         <div class="botoes-cta">
             <a href="https://ambientai.app.br#planos" class="btn-primario">Ver Planos e Assinar</a>
-            <a href="https://ventilar.streamlit.app" class="btn-secundario" target="_blank">Já tenho acesso</a>
+            <a href="https://solnajanela.streamlit.app" class="btn-secundario" target="_blank">Já tenho acesso</a>
         </div>
     </section>
 
     <!-- FOOTER -->
     <footer>
-        © 2026 AMBIENTAI — Tecnologia da Arquitetura &nbsp;|&nbsp; <a href="mailto:tecnologianaarquitetura@gmail.com" style="color:rgba(248,248,246,0.45);">tecnologianaarquitetura@gmail.com</a>
+        © 2026 AMBIENTAI — Tecnologia da Arquitetura &nbsp;|&nbsp;
+        <a href="mailto:tecnologianaarquitetura@gmail.com">tecnologianaarquitetura@gmail.com</a>
     </footer>
 
 </body>

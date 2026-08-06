@@ -18,6 +18,7 @@
     --ventilar: #2d6a9f;
     --sol: #c9a84c;
     --acustica: #2d7a5f;
+    --brise: #b84c1a;
   }
 
   html { scroll-behavior: smooth; }
@@ -52,130 +53,31 @@
     text-decoration: none;
   }
 
-  .nav-logo img {
-    height: 36px;
-    width: auto;
-    display: block;
-  }
+  .nav-logo span { color: var(--dourado); }
 
-  /* HAMBURGUER */
-  .hamburger {
+  .nav-links {
     display: flex;
-    flex-direction: column;
-    gap: 5px;
-    cursor: pointer;
-    padding: 6px;
-    background: none;
-    border: none;
-    z-index: 200;
-  }
-
-  .hamburger span {
-    display: block;
-    width: 24px;
-    height: 1.5px;
-    background: rgba(255,255,255,0.7);
-    transition: all 0.3s;
-  }
-
-  .hamburger:hover span { background: white; }
-
-  /* OVERLAY */
-  .menu-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.45);
-    z-index: 150;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s;
-  }
-  .menu-overlay.aberto { opacity: 1; pointer-events: all; }
-
-  /* SIDEBAR */
-  .sidebar {
-    position: fixed;
-    top: 0; right: 0;
-    width: 280px;
-    height: 100vh;
-    background: rgba(6, 17, 31, 0.98);
-    backdrop-filter: blur(12px);
-    border-left: 1px solid rgba(201,168,76,0.15);
-    z-index: 160;
-    transform: translateX(100%);
-    transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
-    display: flex;
-    flex-direction: column;
-    padding: 32px 0;
-  }
-  .sidebar.aberto { transform: translateX(0); }
-
-  .sidebar-header {
-    display: flex;
-    justify-content: space-between;
+    gap: 32px;
     align-items: center;
-    padding: 0 32px 28px;
-    border-bottom: 1px solid rgba(255,255,255,0.06);
   }
 
-  .sidebar-logo {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: white;
-    letter-spacing: 4px;
+  .nav-links a {
+    color: rgba(255,255,255,0.7);
     text-decoration: none;
-  }
-  .sidebar-logo span { color: var(--dourado); }
-
-  .btn-fechar {
-    background: none;
-    border: none;
-    color: rgba(255,255,255,0.45);
-    font-size: 1.4rem;
-    cursor: pointer;
-    padding: 4px;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
     transition: color 0.2s;
-    line-height: 1;
-  }
-  .btn-fechar:hover { color: white; }
-
-  .sidebar-links {
-    display: flex;
-    flex-direction: column;
-    padding: 20px 0;
   }
 
-  .sidebar-links a {
-    display: block;
-    padding: 13px 32px;
-    color: rgba(255,255,255,0.6);
-    text-decoration: none;
-    font-size: 0.76rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    border-left: 2px solid transparent;
-    transition: all 0.2s;
+  .nav-links a:hover { color: white; }
+
+  .nav-links a.btn-nav {
+    background: var(--dourado);
+    color: var(--azul-escuro);
+    padding: 8px 24px;
+    border-radius: 2px;
+    font-weight: 500;
   }
-
-  .sidebar-links a:hover {
-    color: white;
-    background: rgba(255,255,255,0.04);
-    padding-left: 38px;
-  }
-
-  .sidebar-links .link-ventilar:hover { border-left-color: #2d6a9f; }
-  .sidebar-links .link-sol:hover { border-left-color: var(--dourado); }
-  .sidebar-links .link-acustica:hover { border-left-color: #2d7a5f; }
-
-  .sidebar-divider {
-    height: 1px;
-    background: rgba(255,255,255,0.06);
-    margin: 8px 32px;
-  }
-
-  .sidebar-links .link-gerenciar { color: rgba(201,168,76,0.65); margin-top: 4px; }
-  .sidebar-links .link-gerenciar:hover { color: var(--dourado); border-left-color: var(--dourado); }
 
   /* HERO */
   .hero {
@@ -373,6 +275,7 @@
   .programa-visual.ventilar { background: linear-gradient(135deg, #1a3a5c 0%, #2d6a9f 100%); }
   .programa-visual.sol { background: linear-gradient(135deg, #7a5a10 0%, #c9a84c 100%); }
   .programa-visual.acustica { background: linear-gradient(135deg, #1a3d2e 0%, #2d7a5f 100%); }
+  .programa-visual.brise { background: linear-gradient(135deg, #6b2a0d 0%, #b84c1a 100%); }
 
   .programa-numero {
     font-family: 'Cormorant Garamond', serif;
@@ -466,6 +369,7 @@
   .btn-ventilar { background: var(--ventilar); color: white; }
   .btn-sol { background: var(--sol); color: var(--azul-escuro); }
   .btn-acustica { background: var(--acustica); color: white; }
+  .btn-brise { background: var(--brise); color: white; }
 
   /* SOBRE */
   .sobre {
@@ -669,48 +573,16 @@
 </style>
 </head>
 <body>
-<div style="background:#c9a84c; color:#1a3a5c; text-align:center; padding:14px; font-family:'DM Sans',sans-serif; font-size:0.95rem; font-weight:500; letter-spacing:1px; position:fixed; top:0; left:0; right:0; z-index:9999;">
 
-</div>
- <nav>
-  <a href="https://ambientai.app.br" class="nav-logo">AMBIENT<span>AI</span></a>
-  <button class="hamburger" onclick="abrirMenu()" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
+<nav>
+  <a href="#" class="nav-logo">AMBIENT<span>AI</span></a>
+  <div class="nav-links">
+    <a href="#programas">Programas</a>
+    <a href="#sobre">Sobre</a>
+    <a href="#planos">Planos</a>
+    <a href="https://mail.google.com/mail/?view=cm&to=tecnologianaarquitetura@gmail.com" class="btn-nav" target="_blank">Contato</a>
+  </div>
 </nav>
-
-<!-- OVERLAY -->
-<div class="menu-overlay" id="overlay" onclick="fecharMenu()"></div>
-
-<!-- SIDEBAR -->
-<div class="sidebar" id="sidebar">
-  <div class="sidebar-header">
-    <a href="https://ambientai.app.br" class="sidebar-logo">AMBIENT<span>AI</span></a>
-    <button class="btn-fechar" onclick="fecharMenu()">✕</button>
-  </div>
-  <div class="sidebar-links">
-    <a href="https://ambientai.app.br/ventilar.html" class="link-ventilar">VENTILAR</a>
-    <a href="https://ambientai.app.br/solnajanela.html" class="link-sol">SOL NA JANELA</a>
-    <a href="https://ambientai.app.br/acustica.html" class="link-acustica">ACÚSTICA URBANA</a>
-    <div class="sidebar-divider"></div>
-    <a href="#sobre" class="link-sobre" onclick="fecharMenu()">SOBRE A AMBIENTAI</a>
-    <div class="sidebar-divider"></div>
-    <a href="https://billing.stripe.com/p/login/5kQ7sNcggdnVfso1QEeME00" class="link-gerenciar" target="_blank">GERENCIAR ASSINATURA</a>
-  </div>
-</div>
-
-<script>
-  function abrirMenu() {
-    document.getElementById('sidebar').classList.add('aberto');
-    document.getElementById('overlay').classList.add('aberto');
-    document.body.style.overflow = 'hidden';
-  }
-  function fecharMenu() {
-    document.getElementById('sidebar').classList.remove('aberto');
-    document.getElementById('overlay').classList.remove('aberto');
-    document.body.style.overflow = '';
-  }
-</script>
 
 <!-- HERO -->
 <div class="hero">
@@ -730,7 +602,7 @@
 <div class="programas" id="programas">
   <div class="secao-header">
     <p class="secao-tag">Suite de ferramentas</p>
-    <h2 class="secao-titulo">Três ferramentas.</h2>
+    <h2 class="secao-titulo">Quatro ferramentas.</h2>
     <p class="secao-sub">Cada ferramenta foi desenvolvida para apoiar decisões de projeto com precisão e agilidade, seguindo as normas brasileiras vigentes.</p>
   </div>
 
@@ -769,7 +641,7 @@
         <li>Dados por cidade de referência</li>
         <li>Orientação da janela por azimute</li>
       </ul>
-      <a href="https://ambientai.app.br/solnajanela.html" class="btn-programa btn-sol">Acessar Sol na Janela →</a>
+      <a href="https://ambientai.app.br/sol.html" class="btn-programa btn-sol">Acessar SOL NA JANELA →</a>
     </div>
   </div>
 
@@ -789,7 +661,28 @@
         <li>Nível de Pressão Sonora em 4 pontos</li>
         <li>Verificação automática NBR 10152:2017</li>
       </ul>
-      <a href="https://ambientai.app.br/acustica.html" class="btn-programa btn-acustica" target="_blank">Acessar Acústica Urbana →</a>
+      <a href="https://ambientai.app.br/acustica.html" class="btn-programa btn-acustica">Acessar ACÚSTICA URBANA →</a>
+    </div>
+  </div>
+
+  <!-- BRISE -->
+  <div class="programa-card invertido">
+    <div class="programa-visual brise">
+      <div class="programa-icone">🪟</div>
+      <div class="programa-nome">BRISE</div>
+      <div class="programa-norma">FAUUSP 2011 · Geometria Solar</div>
+      <div class="programa-numero">04</div>
+    </div>
+    <div class="programa-info">
+      <p class="programa-desc">Dimensiona brises horizontais e verticais para proteção solar de aberturas, calcula o fator de sombreamento hora a hora ao longo do ano e indica brises equivalentes.</p>
+      <ul class="programa-features">
+        <li>Placas horizontais e verticais combinadas</li>
+        <li>Tabela de sombreamento mês a mês</li>
+        <li>Fator de sombreamento anual</li>
+        <li>Brises equivalentes (múltiplas placas)</li>
+        <li>Relatório técnico em PDF</li>
+      </ul>
+      <a href="https://ambientai.app.br/brise.html" class="btn-programa btn-brise">Acessar BRISE →</a>
     </div>
   </div>
 </div>
@@ -807,16 +700,49 @@
   </div>
 </div>
 
+<!-- PLANOS -->
+<div class="planos" id="planos">
+  <div class="planos-inner">
+    <div class="secao-header">
+      <p class="secao-tag">Planos e preços</p>
+      <h2 class="secao-titulo">Escolha seu plano</h2>
+      <p class="secao-sub">Acesso a todos os programas disponíveis da suite AMBIENTAI. Dúvidas? Entre em contato: <a href="mailto:tecnologianaarquitetura@gmail.com" style="color:var(--azul-medio);">tecnologianaarquitetura@gmail.com</a></p>
+    </div>
+
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); gap:24px; max-width:640px; margin:48px auto 0;">
+      <div class="plano-card">
+        <div class="plano-nome">Mensal</div>
+        <div class="plano-preco">R$ 50<span>/mês</span></div>
+        <div class="plano-anual">Cancele quando quiser</div>
+        <div class="plano-divider"></div>
+        <p class="plano-desc">Acesso completo a todas as ferramentas AMBIENTAI. Renovação automática todo mês.</p>
+        <a href="https://buy.stripe.com/14AfZj800cjR6VSbreeME03" class="btn-plano escuro" target="_blank">Assinar agora</a>
+      </div>
+      <div class="plano-card destaque">
+        <div class="plano-badge">Melhor valor</div>
+        <div class="plano-nome">Anual</div>
+        <div class="plano-preco">R$ 500<span>/ano</span></div>
+        <div class="plano-anual">2 meses grátis — R$ 41,67/mês</div>
+        <div class="plano-divider"></div>
+        <p class="plano-desc">Acesso completo a todas as ferramentas AMBIENTAI. Renovação automática todo ano.</p>
+        <a href="https://buy.stripe.com/3cI3cxcggcjR6VS66UeME02" class="btn-plano dourado" target="_blank">Assinar agora</a>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- FOOTER -->
 <footer>
   <div class="footer-logo">AMBIENT<span>AI</span></div>
   <p class="footer-sub">TECNOLOGIA DA ARQUITETURA</p>
   <div class="footer-links">
+    <a href="#programas">Programas</a>
+    <a href="#planos">Planos</a>
+    <a href="mailto:tecnologianaarquitetura@gmail.com">Contato</a>
   </div>
   <p class="footer-copy">© 2026 AMBIENTAI — Marcia Alucci · São Paulo</p>
   <p style="margin-top:12px;"><a href="https://billing.stripe.com/p/login/5kQ7sNcggdnVfso1QEeME00" style="color:rgba(255,255,255,0.4); font-size:0.78rem; letter-spacing:1px;" target="_blank">Gerenciar assinatura</a></p>
-  <p style="margin-top:8px; font-size:0.78rem; color:rgba(255,255,255,0.4); letter-spacing:1px;">Dúvidas: tecnologianaarquitetura@gmail.com</p>
+  <p style="margin-top:8px; font-size:0.78rem; color:rgba(255,255,255,0.4); letter-spacing:1px;">Dúvidas: <a href="mailto:tecnologianaarquitetura@gmail.com" style="color:rgba(255,255,255,0.4);">tecnologianaarquitetura@gmail.com</a></p>
 </footer>
 
 </body>

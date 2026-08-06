@@ -3,19 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ACÚSTICA URBANA — AMBIENTAI</title>
+    <title>BRISE & FATOR DE SOMBREAMENTO — AMBIENTAI</title>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         :root {
-            --azul-escuro: #0d1b2a;
-            --verde-escuro: #14402f;
-            --verde: #2d7a5f;
-            --verde-claro: #7fc9ab;
-            --dourado: #c9a84c;
-            --branco: #f8f8f6;
-            --cinza-claro: #e8e8e4;
+            --escuro: #1a0d08;
+            --medio: #6b2a0d;
+            --terracota: #b84c1a;
+            --terracota-claro: #e07a4a;
+            --branco: #f8f6f4;
+            --cinza-claro: #e8e0da;
             --fonte-display: 'Cormorant Garamond', serif;
             --fonte-corpo: 'Inter', sans-serif;
         }
@@ -23,7 +22,7 @@
         html { scroll-behavior: smooth; }
 
         body {
-            background: var(--azul-escuro);
+            background: var(--escuro);
             color: var(--branco);
             font-family: var(--fonte-corpo);
             font-weight: 300;
@@ -31,8 +30,8 @@
         }
 
         header {
-            background: var(--azul-escuro);
-            border-bottom: 1px solid rgba(45, 122, 95, 0.4);
+            background: var(--escuro);
+            border-bottom: 1px solid rgba(184,76,26,0.35);
             padding: 1.2rem 2rem;
             display: flex;
             align-items: center;
@@ -44,14 +43,14 @@
 
         .logo-header {
             font-family: var(--fonte-display);
-            font-size: 1.4rem;
-            font-weight: 600;
+            font-size: 2.2rem;
+            font-weight: 700;
             letter-spacing: 0.12em;
             color: var(--branco);
             text-decoration: none;
         }
 
-        .logo-header span { color: var(--dourado); }
+        .logo-header span { color: var(--terracota-claro); }
 
         nav a {
             color: var(--cinza-claro);
@@ -63,7 +62,7 @@
             transition: color 0.2s;
         }
 
-        nav a:hover { color: var(--verde-claro); }
+        nav a:hover { color: var(--terracota-claro); }
 
         .hero {
             min-height: 60vh;
@@ -73,7 +72,7 @@
             justify-content: center;
             text-align: center;
             padding: 5rem 2rem 4rem;
-            background: linear-gradient(160deg, #0d1b2a 0%, #14402f 60%, #0d1b2a 100%);
+            background: linear-gradient(160deg, #1a0d08 0%, #6b2a0d 60%, #1a0d08 100%);
             position: relative;
             overflow: hidden;
         }
@@ -82,21 +81,21 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: radial-gradient(ellipse at 50% 0%, rgba(45,122,95,0.15) 0%, transparent 70%);
+            background: radial-gradient(ellipse at 50% 0%, rgba(184,76,26,0.18) 0%, transparent 70%);
         }
 
         .hero-eyebrow {
             font-size: 0.75rem;
             letter-spacing: 0.25em;
             text-transform: uppercase;
-            color: var(--verde-claro);
+            color: var(--terracota-claro);
             margin-bottom: 1.5rem;
             font-weight: 500;
         }
 
         .hero h1 {
             font-family: var(--fonte-display);
-            font-size: clamp(2.2rem, 7vw, 4.6rem);
+            font-size: clamp(1.6rem, 5vw, 3rem);
             font-weight: 700;
             line-height: 1;
             letter-spacing: -0.01em;
@@ -105,7 +104,7 @@
         }
 
         .hero h1 span {
-            color: var(--verde-claro);
+            color: var(--terracota-claro);
             display: block;
             font-size: 0.45em;
             font-weight: 400;
@@ -116,16 +115,16 @@
 
         .hero-subtitulo {
             font-size: clamp(0.9rem, 2vw, 1.1rem);
-            color: rgba(248,248,246,0.7);
+            color: rgba(248,246,244,0.7);
             max-width: 620px;
             margin: 1.5rem auto 0;
             font-weight: 300;
         }
 
-        .linha-verde {
+        .linha-terracota {
             width: 60px;
             height: 2px;
-            background: var(--verde);
+            background: var(--terracota);
             margin: 2rem auto;
         }
 
@@ -135,19 +134,19 @@
             padding: 4rem 2rem;
         }
 
-        .secao + .secao { border-top: 1px solid rgba(255,255,255,0.08); }
+        .secao + .secao { border-top: 1px solid rgba(255,255,255,0.07); }
 
         .secao-titulo {
             font-family: var(--fonte-display);
             font-size: clamp(1.6rem, 4vw, 2.2rem);
             font-weight: 600;
-            color: var(--verde-claro);
+            color: var(--terracota-claro);
             margin-bottom: 1.5rem;
             letter-spacing: 0.02em;
         }
 
         .secao-texto {
-            color: rgba(248,248,246,0.82);
+            color: rgba(248,246,244,0.82);
             font-size: 0.97rem;
             line-height: 1.85;
         }
@@ -155,13 +154,13 @@
         .secao-texto p { margin-bottom: 1rem; }
 
         .destaque {
-            background: rgba(45,122,95,0.12);
-            border-left: 3px solid var(--verde);
+            background: rgba(184,76,26,0.10);
+            border-left: 3px solid var(--terracota);
             padding: 1rem 1.5rem;
             margin: 1.5rem 0;
             border-radius: 0 6px 6px 0;
             font-size: 0.95rem;
-            color: rgba(248,248,246,0.85);
+            color: rgba(248,246,244,0.85);
         }
 
         .grade-metodos {
@@ -173,14 +172,14 @@
 
         .card-metodo {
             background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(45,122,95,0.35);
+            border: 1px solid rgba(184,76,26,0.25);
             border-radius: 8px;
             padding: 1.8rem;
             transition: border-color 0.3s, background 0.3s;
         }
 
         .card-metodo:hover {
-            border-color: rgba(45,122,95,0.7);
+            border-color: rgba(184,76,26,0.55);
             background: rgba(255,255,255,0.06);
         }
 
@@ -194,31 +193,31 @@
             font-family: var(--fonte-display);
             font-size: 1.2rem;
             font-weight: 600;
-            color: var(--verde-claro);
+            color: var(--terracota-claro);
             margin-bottom: 0.8rem;
         }
 
         .card-metodo p {
             font-size: 0.88rem;
-            color: rgba(248,248,246,0.72);
+            color: rgba(248,246,244,0.72);
             line-height: 1.7;
         }
 
-        .grade-orientacoes {
+        .grade-passos {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 1rem;
             margin-top: 1.5rem;
         }
 
-        .item-orientacao {
+        .item-passo {
             display: flex;
             gap: 0.8rem;
             align-items: flex-start;
         }
 
-        .item-orientacao .num {
-            color: var(--verde-claro);
+        .item-passo .num {
+            color: var(--terracota);
             font-family: var(--fonte-display);
             font-size: 1.4rem;
             font-weight: 700;
@@ -227,25 +226,25 @@
             margin-top: 0.1rem;
         }
 
-        .item-orientacao p {
+        .item-passo p {
             font-size: 0.88rem;
-            color: rgba(248,248,246,0.75);
+            color: rgba(248,246,244,0.75);
             line-height: 1.6;
         }
 
         .alerta {
-            background: rgba(45,122,95,0.08);
-            border: 1px solid rgba(45,122,95,0.35);
+            background: rgba(184,76,26,0.07);
+            border: 1px solid rgba(184,76,26,0.28);
             border-radius: 8px;
             padding: 1.2rem 1.5rem;
             font-size: 0.9rem;
-            color: rgba(248,248,246,0.82);
+            color: rgba(248,246,244,0.82);
             margin-top: 1.5rem;
         }
 
         .cta-final {
-            background: linear-gradient(160deg, #14402f 0%, #0d1b2a 100%);
-            border-top: 1px solid rgba(45,122,95,0.4);
+            background: linear-gradient(160deg, #6b2a0d 0%, #1a0d08 100%);
+            border-top: 1px solid rgba(184,76,26,0.35);
             text-align: center;
             padding: 5rem 2rem;
         }
@@ -258,7 +257,7 @@
         }
 
         .cta-final p {
-            color: rgba(248,248,246,0.65);
+            color: rgba(248,246,244,0.65);
             font-size: 1rem;
             margin-bottom: 2.5rem;
             max-width: 500px;
@@ -274,8 +273,8 @@
         }
 
         .btn-primario {
-            background: var(--verde);
-            color: var(--branco);
+            background: var(--terracota);
+            color: white;
             font-family: var(--fonte-corpo);
             font-size: 0.9rem;
             font-weight: 600;
@@ -288,13 +287,13 @@
         }
 
         .btn-primario:hover {
-            background: #389a77;
+            background: var(--terracota-claro);
             transform: translateY(-2px);
         }
 
         .btn-secundario {
-            border: 1px solid rgba(45,122,95,0.6);
-            color: var(--verde-claro);
+            border: 1px solid rgba(184,76,26,0.5);
+            color: var(--terracota-claro);
             font-family: var(--fonte-corpo);
             font-size: 0.9rem;
             font-weight: 400;
@@ -306,24 +305,22 @@
         }
 
         .btn-secundario:hover {
-            border-color: var(--verde);
-            background: rgba(45,122,95,0.12);
+            border-color: var(--terracota);
+            background: rgba(184,76,26,0.10);
         }
 
         footer {
-            background: #080f18;
+            background: #0d0604;
             text-align: center;
             padding: 1.5rem;
             font-size: 0.78rem;
-            color: rgba(248,248,246,0.3);
+            color: rgba(248,246,244,0.3);
             letter-spacing: 0.05em;
         }
 
-        footer a { color: rgba(248,248,246,0.45); }
+        footer a { color: rgba(248,246,244,0.45); }
 
-        @media (max-width: 640px) {
-            nav { display: none; }
-        }
+        @media (max-width: 640px) { nav { display: none; } }
 
         @media (prefers-reduced-motion: no-preference) {
             .card-metodo {
@@ -334,10 +331,7 @@
             .card-metodo:nth-child(2) { animation-delay: 0.1s; }
             .card-metodo:nth-child(3) { animation-delay: 0.2s; }
             .card-metodo:nth-child(4) { animation-delay: 0.3s; }
-
-            @keyframes aparecer {
-                to { opacity: 1; transform: translateY(0); }
-            }
+            @keyframes aparecer { to { opacity: 1; transform: translateY(0); } }
         }
     </style>
 </head>
@@ -349,21 +343,21 @@
         <nav>
             <a href="https://ambientai.app.br">Início</a>
             <a href="https://ambientai.app.br#planos">Planos</a>
-            <a href="https://acusticaurbana.streamlit.app" target="_blank">Acessar</a>
+            <a href="https://brise-saas.onrender.com" target="_blank">Acessar</a>
         </nav>
     </header>
 
     <!-- HERO -->
     <section class="hero">
-        <p class="hero-eyebrow">AMBIENTAI — Tecnologia da Arquitetura</p>
+        <p class="hero-eyebrow">AMBIENTAI — Tecnologia na Arquitetura</p>
         <h1>
             <span>Programa</span>
-            🔊 ACÚSTICA URBANA
+            🪟 BRISE & FATOR DE SOMBREAMENTO
         </h1>
-        <div class="linha-verde"></div>
+        <div class="linha-terracota"></div>
         <p class="hero-subtitulo">
-            Avalie o desempenho acústico de ambientes expostos ao ruído de
-            tráfego veicular, conforme a NBR 10152:2017.
+            Dimensione brises (proteções solares) horizontais e verticais, calcule o fator
+            de sombreamento ao longo do ano e gere o relatório técnico do projeto.
         </p>
     </section>
 
@@ -372,120 +366,64 @@
         <h2 class="secao-titulo">Objetivo</h2>
         <div class="secao-texto">
             <p>
-                O ACÚSTICA URBANA avalia o desempenho acústico de ambientes em áreas
-                urbanas considerando o <strong>ruído de tráfego veicular</strong>, em
-                etapas que vão da caracterização da via até o resultado final conforme
-                a <strong>NBR 10152:2017 — Níveis de pressão sonora em ambientes
-                internos a edificações</strong>.
+                Para uma <strong>cidade escolhida pelo usuário</strong> e o <strong>azimute de uma
+                dada janela (abertura)</strong>, este programa calcula os horários de sol ao longo
+                do ano e das horas do dia, e o efeito de brises — placas horizontais e/ou verticais —
+                propostos pelo usuário — e calcula o <strong>fator de sombreamento correspondente</strong>.
             </p>
-            <p>
-                O programa calcula o Nível de Pressão Sonora (NPS) em quatro pontos:
-                na borda da calçada, na face externa da fachada, no interior do
-                ambiente antes da absorção e no interior após a absorção dos
-                revestimentos internos.
-            </p>
-            <div class="destaque">
-                Ao final, o NPS interno é comparado automaticamente com o limite da
-                NBR 10152:2017 para a atividade do ambiente avaliado — de dormitórios
-                e salas de aula a escritórios, teatros e hospitais.
-            </div>
         </div>
     </section>
 
-    <!-- MÉTODOS -->
-    <section class="secao">
-        <h2 class="secao-titulo">Métodos de Cálculo</h2>
-        <div class="grade-metodos">
-            <div class="card-metodo">
-                <span class="icone">🚗</span>
-                <h3>Via e Tráfego</h3>
-                <p>
-                    Nível sonoro na borda da calçada pela fórmula de Josse, com
-                    correções de velocidade, percentual de veículos pesados e
-                    inclinação da pista — e curvas espectrais por tipo de via
-                    baseadas em medições da CET/SP.
-                </p>
-            </div>
-            <div class="card-metodo">
-                <span class="icone">🧱</span>
-                <h3>Barreira Acústica</h3>
-                <p>
-                    Atenuação por difração de barreiras (muros, taludes), calculada
-                    pelo número de Fresnel em cada banda de frequência, considerando
-                    geometria entre via, barreira e ponto estudado na fachada.
-                </p>
-            </div>
-            <div class="card-metodo">
-                <span class="icone">🏢</span>
-                <h3>Isolamento da Fachada</h3>
-                <p>
-                    Perda por Transmissão Composta (PTC) da fachada, ponderando o
-                    isolamento da parte envidraçada e da parte opaca pelas suas áreas,
-                    com banco de dados de materiais por banda de 125 Hz a 4000 Hz.
-                </p>
-            </div>
-            <div class="card-metodo">
-                <span class="icone">🎛️</span>
-                <h3>Absorção Interna</h3>
-                <p>
-                    Redução do nível sonoro pelos revestimentos internos (piso, forro
-                    e paredes), calculada pelo método de Eyring com banco de
-                    coeficientes de absorção por frequência.
-                </p>
-            </div>
-        </div>
-    </section>
 
     <!-- COMO USAR -->
     <section class="secao">
         <h2 class="secao-titulo">Como Usar o Programa</h2>
-        <div class="grade-orientacoes">
-            <div class="item-orientacao">
+        <div class="grade-passos">
+            <div class="item-passo">
                 <span class="num">01</span>
-                <p><strong>Caracterize a via:</strong> tipo de via, veículos por hora, % de pesados, velocidade, inclinação e distâncias até a edificação.</p>
+                <p>Escolha a <strong>cidade</strong> e informe o <strong>azimute da janela</strong> em relação ao Norte do projeto.</p>
             </div>
-            <div class="item-orientacao">
+            <div class="item-passo">
                 <span class="num">02</span>
-                <p><strong>Informe a barreira</strong> (se houver): altura e distância até a fachada.</p>
+                <p>Observe a tabela de <strong>sol sem proteção</strong> — horas e meses de incidência direta na abertura.</p>
             </div>
-            <div class="item-orientacao">
+            <div class="item-passo">
                 <span class="num">03</span>
-                <p><strong>Defina o ambiente:</strong> dimensões, materiais da fachada (parte envidraçada e parte opaca) e respectivas áreas.</p>
+                <p>Informe as dimensões da janela e das <strong>placas horizontais e verticais</strong> para dimensionar os brises.</p>
             </div>
-            <div class="item-orientacao">
+            <div class="item-passo">
                 <span class="num">04</span>
-                <p><strong>Escolha os revestimentos internos</strong> de piso, forro e paredes nos bancos de materiais.</p>
+                <p>Consulte a tabela de sombreamento combinado PH + PV e o <strong>fator de sombreamento anual</strong>.</p>
             </div>
-            <div class="item-orientacao">
+            <div class="item-passo">
                 <span class="num">05</span>
-                <p><strong>Selecione a atividade do ambiente</strong> (NBR 10152) e veja o veredito: ATENDEU ou NÃO ATENDEU.</p>
+                <p>Se necessário, calcule os <strong>brises equivalentes</strong>: várias placas menores com o mesmo efeito.</p>
             </div>
-            <div class="item-orientacao">
+            <div class="item-passo">
                 <span class="num">06</span>
-                <p>Consulte o <strong>relatório completo</strong> com os níveis por banda de frequência em todas as etapas do cálculo.</p>
+                <p>Gere o <strong>relatório técnico</strong> com cabeçalho, tabelas e fator de sombreamento — salve como PDF.</p>
             </div>
         </div>
 
         <div class="alerta">
-            🔊 <strong>Aplicações:</strong> projetos de edifícios residenciais e comerciais
-            em vias movimentadas, especificação de esquadrias e vidros acústicos,
-            laudos de conforto acústico e estudos de adequação à NBR 10152 e à NBR 15575.
+            🪟 <strong>Aplicações:</strong> dimensionamento de proteções solares em projetos de arquitetura,
+            verificação de desempenho de fachadas, adequação a normas de eficiência energética e
+            elaboração de memoriais descritivos com dados técnicos de sombreamento.
         </div>
     </section>
 
     <!-- CTA FINAL -->
     <section class="cta-final">
-        <h2>Pronto para começar?</h2>
-        <p>Assine a AMBIENTAI e acesse o ACÚSTICA URBANA e todas as ferramentas da suite.</p>
+        <h2>Pronto para dimensionar?</h2>
         <div class="botoes-cta">
-            <a href="https://ambientai.app.br#planos" class="btn-primario">Ver Planos e Assinar</a>
-            <a href="https://acusticaurbana.streamlit.app" class="btn-secundario" target="_blank">Já tenho acesso</a>
+            <a href="https://ambientai.app.br#planos" class="btn-primario">Ver Planos</a>
+            <a href="https://brise-saas.onrender.com" class="btn-secundario" target="_blank">Já tenho acesso</a>
         </div>
     </section>
 
     <!-- FOOTER -->
     <footer>
-        © 2026 AMBIENTAI — Tecnologia da Arquitetura &nbsp;|&nbsp;
+        © 2026 AMBIENTAI — Tecnologia na Arquitetura &nbsp;|&nbsp;
         <a href="mailto:tecnologianaarquitetura@gmail.com">tecnologianaarquitetura@gmail.com</a>
     </footer>
 
