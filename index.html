@@ -19,6 +19,7 @@
     --sol: #c9a84c;
     --acustica: #2d7a5f;
     --brise: #b84c1a;
+    --climaticus: #ff8c00;
   }
 
   html { scroll-behavior: smooth; }
@@ -276,6 +277,7 @@
   .programa-visual.sol { background: linear-gradient(135deg, #7a5a10 0%, #c9a84c 100%); }
   .programa-visual.acustica { background: linear-gradient(135deg, #1a3d2e 0%, #2d7a5f 100%); }
   .programa-visual.brise { background: linear-gradient(135deg, #6b2a0d 0%, #b84c1a 100%); }
+  .programa-visual.climaticus { background: linear-gradient(135deg, #0a1a3a 0%, #1a3a6a 100%); }
 
   .programa-numero {
     font-family: 'Cormorant Garamond', serif;
@@ -370,6 +372,7 @@
   .btn-sol { background: var(--sol); color: var(--azul-escuro); }
   .btn-acustica { background: var(--acustica); color: white; }
   .btn-brise { background: var(--brise); color: white; }
+  .btn-climaticus { background: var(--climaticus); color: white; }
 
   /* SOBRE */
   .sobre {
@@ -592,19 +595,20 @@
   <div class="hero-logo">AMBIENT<span>AI</span></div>
   <div class="hero-divider"></div>
   <p class="hero-sub">Ferramentas de apoio ao projeto arquitetônico</p>
+  <p style="color:rgba(255,255,255,0.82);font-size:1rem;line-height:1.75;max-width:660px;margin:22px auto 30px;font-weight:300;">A AMBIENTAI é uma suite de cinco programas para apoiar arquitetos, engenheiros e estudantes na tomada de decisões de projeto, com base nas normas técnicas brasileiras: ventilação natural, insolação, acústica urbana, proteção solar e clima. Cada programa transforma procedimentos complexos de cálculo em interfaces simples, ágeis e acessíveis — sem abrir mão do rigor técnico.</p>
   <p class="hero-autor">Marcia Alucci · São Paulo · 2026</p>
   <div class="hero-btns">
     <a href="#programas" class="btn-primary">Conheça os programas</a>
   </div>
-  <p style="color:#c9a84f;font-size:0.85rem;margin-top:12px;">Já é assinante e quer cancelar? <a href="https://billing.stripe.com/p/login/5kQ7sNcggdnVfso1QEeME00" target="_blank" style="color:#c9a84f;text-decoration:underline;">Gerencie ou cancele sua assinatura aqui</a>.</p>
- 
+  <p style="color:#c9a84f;font-size:0.85rem;margin-top:12px;"><a href="https://billing.stripe.com/p/login/5kQ7sNcggdnVfso1QEeME00" target="_blank" style="color:#c9a84f;text-decoration:underline;">Gerencie ou cancele sua assinatura aqui</a>.</p>
 </div>
 
 <!-- PROGRAMAS -->
 <div class="programas" id="programas">
   <div class="secao-header">
     <p class="secao-tag">Suite de ferramentas</p>
-    <h2 class="secao-titulo">Quatro ferramentas.</h2>
+    <h2 class="secao-titulo">Cinco ferramentas.</h2>
+    <p class="secao-sub" style="margin-bottom:10px;">Fazem parte desta suite os seguintes programas: <strong>VENTILAR</strong>, <strong>SOL NA JANELA</strong>, <strong>ACÚSTICA URBANA</strong>, <strong>BRISE &amp; FATOR DE SOMBREAMENTO</strong> e <strong>CLIMATICUS 5.0</strong>.</p>
     <p class="secao-sub">Cada ferramenta foi desenvolvida para apoiar decisões de projeto com precisão e agilidade, seguindo as normas brasileiras vigentes.</p>
   </div>
 
@@ -684,6 +688,24 @@
         <li>Relatório técnico em PDF</li>
       </ul>
       <a href="https://ambientai.app.br/brise.html" class="btn-programa btn-brise">Acessar BRISE →</a>
+    </div>
+  </div>
+  <!-- CLIMATICUS -->
+  <div class="programa-card">
+    <div class="programa-visual climaticus">
+      <div class="programa-icone">🌡️</div>
+      <div class="programa-nome">CLIMATICUS 5.0</div>
+      <div class="programa-numero">05</div>
+    </div>
+    <div class="programa-info">
+      <p class="programa-desc">Dados climáticos de 127 cidades brasileiras e métodos de classificação do clima para subsidiar projetos de arquitetura e urbanismo.</p>
+      <ul class="programa-features">
+        <li>Zona da NBR 15220-3 e dados INMET 1991–2020</li>
+        <li>Mahoney (TMT e TMN) e Carta de Givoni</li>
+        <li>Radiação solar e geometria ótima</li>
+        <li>Iluminância de projeto para luz natural</li>
+      </ul>
+      <a href="https://ambientai.app.br/climaticus.html" class="btn-programa btn-climaticus">Acessar CLIMATICUS →</a>
     </div>
   </div>
 </div>
@@ -802,6 +824,29 @@
           <div class="plano-divider"></div>
           <p class="plano-desc">Acesso ao programa BRISE. Renovação automática todo ano.</p>
           <a href="https://buy.stripe.com/4gMbJ3gwwdnV2FCeDqeME09" class="btn-plano dourado" target="_blank">Assinar agora</a>
+        </div>
+      </div>
+    </div>
+    <!-- CLIMATICUS -->
+    <div style="margin:48px auto 0; max-width:800px;">
+      <p style="text-align:center; font-size:0.75rem; letter-spacing:2px; text-transform:uppercase; color:var(--climaticus); font-weight:500; margin-bottom:16px;">CLIMATICUS 5.0</p>
+      <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); gap:24px;">
+        <div class="plano-card">
+          <div class="plano-nome">Mensal</div>
+          <div class="plano-preco">R$ 50<span>/mês</span></div>
+          <div class="plano-anual">Cancele quando quiser</div>
+          <div class="plano-divider"></div>
+          <p class="plano-desc">Acesso ao programa CLIMATICUS. Renovação automática todo mês.</p>
+          <a href="https://buy.stripe.com/14A14pdkkabJ7ZW1QEeME0b" class="btn-plano escuro" target="_blank">Assinar agora</a>
+        </div>
+        <div class="plano-card destaque">
+          <div class="plano-badge">Melhor valor</div>
+          <div class="plano-nome">Anual</div>
+          <div class="plano-preco">R$ 500<span>/ano</span></div>
+          <div class="plano-anual">2 meses grátis — R$ 41,67/mês</div>
+          <div class="plano-divider"></div>
+          <p class="plano-desc">Acesso ao programa CLIMATICUS. Renovação automática todo ano.</p>
+          <a href="https://buy.stripe.com/28E3cxgwwfw39400MAeME0c" class="btn-plano dourado" target="_blank">Assinar agora</a>
         </div>
       </div>
     </div>

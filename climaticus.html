@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CLIMATICUS 5.0 — AMBIENTAI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --azul-escuro: #0d1b2a;
+            --verde-escuro: #0a1a3a;
+            --verde: #ff8c00;
+            --verde-claro: #ffb04d;
+            --dourado: #c9a84c;
+            --branco: #f8f8f6;
+            --cinza-claro: #e8e8e4;
+            --fonte-display: 'Cormorant Garamond', serif;
+            --fonte-corpo: 'Inter', sans-serif;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: var(--azul-escuro);
+            color: var(--branco);
+            font-family: var(--fonte-corpo);
+            font-weight: 300;
+            line-height: 1.7;
+        }
+
+        header {
+            background: var(--azul-escuro);
+            border-bottom: 1px solid rgba(255, 140, 0, 0.4);
+            padding: 1.2rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-header {
+            font-family: var(--fonte-display);
+            font-size: 1.4rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            color: var(--branco);
+            text-decoration: none;
+        }
+
+        .logo-header span { color: var(--dourado); }
+
+        nav a {
+            color: var(--cinza-claro);
+            text-decoration: none;
+            font-size: 0.85rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-left: 2rem;
+            transition: color 0.2s;
+        }
+
+        nav a:hover { color: var(--verde-claro); }
+
+        .hero {
+            min-height: 60vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 5rem 2rem 4rem;
+            background: linear-gradient(160deg, #0d1b2a 0%, #0a1a3a 60%, #0d1b2a 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 50% 0%, rgba(255,140,0,0.15) 0%, transparent 70%);
+        }
+
+        .hero-eyebrow {
+            font-size: 0.75rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--verde-claro);
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .hero h1 {
+            font-family: var(--fonte-display);
+            font-size: clamp(2.2rem, 7vw, 4.6rem);
+            font-weight: 700;
+            line-height: 1;
+            letter-spacing: -0.01em;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .hero h1 span {
+            color: var(--verde-claro);
+            display: block;
+            font-size: 0.45em;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-subtitulo {
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+            color: rgba(248,248,246,0.7);
+            max-width: 620px;
+            margin: 1.5rem auto 0;
+            font-weight: 300;
+        }
+
+        .linha-verde {
+            width: 60px;
+            height: 2px;
+            background: var(--verde);
+            margin: 2rem auto;
+        }
+
+        .secao {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .secao + .secao { border-top: 1px solid rgba(255,255,255,0.08); }
+
+        .secao-titulo {
+            font-family: var(--fonte-display);
+            font-size: clamp(1.6rem, 4vw, 2.2rem);
+            font-weight: 600;
+            color: var(--verde-claro);
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.02em;
+        }
+
+        .secao-texto {
+            color: rgba(248,248,246,0.82);
+            font-size: 0.97rem;
+            line-height: 1.85;
+        }
+
+        .secao-texto p { margin-bottom: 1rem; }
+
+        .destaque {
+            background: rgba(255,140,0,0.12);
+            border-left: 3px solid var(--verde);
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 6px 6px 0;
+            font-size: 0.95rem;
+            color: rgba(248,248,246,0.85);
+        }
+
+        .grade-metodos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .card-metodo {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,140,0,0.35);
+            border-radius: 8px;
+            padding: 1.8rem;
+            transition: border-color 0.3s, background 0.3s;
+        }
+
+        .card-metodo:hover {
+            border-color: rgba(255,140,0,0.7);
+            background: rgba(255,255,255,0.06);
+        }
+
+        .card-metodo .icone {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .card-metodo h3 {
+            font-family: var(--fonte-display);
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--verde-claro);
+            margin-bottom: 0.8rem;
+        }
+
+        .card-metodo p {
+            font-size: 0.88rem;
+            color: rgba(248,248,246,0.72);
+            line-height: 1.7;
+        }
+
+        .grade-orientacoes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .item-orientacao {
+            display: flex;
+            gap: 0.8rem;
+            align-items: flex-start;
+        }
+
+        .item-orientacao .num {
+            color: var(--verde-claro);
+            font-family: var(--fonte-display);
+            font-size: 1.4rem;
+            font-weight: 700;
+            line-height: 1;
+            flex-shrink: 0;
+            margin-top: 0.1rem;
+        }
+
+        .item-orientacao p {
+            font-size: 0.88rem;
+            color: rgba(248,248,246,0.75);
+            line-height: 1.6;
+        }
+
+        .alerta {
+            background: rgba(255,140,0,0.08);
+            border: 1px solid rgba(255,140,0,0.35);
+            border-radius: 8px;
+            padding: 1.2rem 1.5rem;
+            font-size: 0.9rem;
+            color: rgba(248,248,246,0.82);
+            margin-top: 1.5rem;
+        }
+
+        .cta-final {
+            background: linear-gradient(160deg, #0a1a3a 0%, #0d1b2a 100%);
+            border-top: 1px solid rgba(255,140,0,0.4);
+            text-align: center;
+            padding: 5rem 2rem;
+        }
+
+        .cta-final h2 {
+            font-family: var(--fonte-display);
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .cta-final p {
+            color: rgba(248,248,246,0.65);
+            font-size: 1rem;
+            margin-bottom: 2.5rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .botoes-cta {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primario {
+            background: var(--verde);
+            color: var(--branco);
+            font-family: var(--fonte-corpo);
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 1rem 2.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: background 0.2s, transform 0.15s;
+        }
+
+        .btn-primario:hover {
+            background: #389a77;
+            transform: translateY(-2px);
+        }
+
+        .btn-secundario {
+            border: 1px solid rgba(255,140,0,0.6);
+            color: var(--verde-claro);
+            font-family: var(--fonte-corpo);
+            font-size: 0.9rem;
+            font-weight: 400;
+            letter-spacing: 0.06em;
+            padding: 1rem 2.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: border-color 0.2s, background 0.2s;
+        }
+
+        .btn-secundario:hover {
+            border-color: var(--verde);
+            background: rgba(255,140,0,0.12);
+        }
+
+        footer {
+            background: #080f18;
+            text-align: center;
+            padding: 1.5rem;
+            font-size: 0.78rem;
+            color: rgba(248,248,246,0.3);
+            letter-spacing: 0.05em;
+        }
+
+        footer a { color: rgba(248,248,246,0.45); }
+
+        @media (max-width: 640px) {
+            nav { display: none; }
+        }
+
+        @media (prefers-reduced-motion: no-preference) {
+            .card-metodo {
+                opacity: 0;
+                transform: translateY(16px);
+                animation: aparecer 0.5s ease forwards;
+            }
+            .card-metodo:nth-child(2) { animation-delay: 0.1s; }
+            .card-metodo:nth-child(3) { animation-delay: 0.2s; }
+            .card-metodo:nth-child(4) { animation-delay: 0.3s; }
+
+            @keyframes aparecer {
+                to { opacity: 1; transform: translateY(0); }
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <a href="https://ambientai.app.br" class="logo-header">AMBIENT<span>AI</span></a>
+        <nav>
+            <a href="https://ambientai.app.br">Início</a>
+            <a href="https://ambientai.app.br#planos">Planos</a>
+        </nav>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+        <p class="hero-eyebrow">AMBIENTAI — Tecnologia da Arquitetura</p>
+        <h1>
+            <span>Programa</span>
+            🌡️ CLIMATICUS 5.0
+        </h1>
+        <div class="linha-verde"></div>
+        <p class="hero-subtitulo">
+            Subsídios à Arquitetura e Urbanismo: dados climáticos de 127 cidades
+            brasileiras e métodos de classificação do clima para orientar o projeto.
+        </p>
+    </section>
+
+    <!-- OBJETIVO -->
+    <section class="secao">
+        <h2 class="secao-titulo">Objetivo</h2>
+        <div class="secao-texto">
+            <p>
+                O CLIMATICUS apresenta as <strong>variáveis climáticas de interesse para o
+                desenvolvimento de projetos de arquitetura e urbanismo</strong>, reunindo,
+                organizando e traduzindo em gráficos e classificações os dados de
+                <strong>127 cidades brasileiras</strong> (Normais Climatológicas INMET 1991–2020).
+            </p>
+            <p>
+                Para a cidade escolhida, o programa mostra temperatura, umidade, ventos,
+                precipitação, nebulosidade, evaporação, radiação solar, insolação e iluminância
+                do céu, além de três métodos de classificação do clima que indicam as
+                estratégias de projeto mais adequadas ao clima local.
+            </p>
+            <p>
+                <strong>Objetivo:</strong> dar ao arquiteto e ao urbanista, de forma organizada,
+                a base climática necessária para as decisões de projeto, particularmente no que
+                se refere ao conforto ambiental.
+            </p>
+        </div>
+    </section>
+
+    <!-- MÉTODOS -->
+    <section class="secao">
+        <h2 class="secao-titulo">Conteúdo</h2>
+        <div class="grade-metodos">
+            <div class="card-metodo">
+                <span class="icone">🗺️</span>
+                <h3>Zona NBR 15220-3</h3>
+                <p>
+                    Classificação de cada cidade em uma das zonas brasileiras,
+                    conforme a NBR 15220-3, com as diretrizes construtivas correspondentes.
+                </p>
+            </div>
+            <div class="card-metodo">
+                <span class="icone">🌡️</span>
+                <h3>Temperatura, Umidade e Nebulosidade</h3>
+                <p>
+                    Dados mensais de temperatura, umidade relativa e nebulosidade de cada
+                    cidade escolhida pelo usuário (Normais Climatológicas INMET 1991–2020).
+                </p>
+            </div>
+            <div class="card-metodo">
+                <span class="icone">📋</span>
+                <h3>Mahoney TMT (clássico)</h3>
+                <p>
+                    Diagnóstico de conforto de dia e de noite, mês a mês, com limites fixos
+                    por grupo de umidade, e as recomendações de projeto do método de
+                    Mahoney (Koenigsberger et al.).
+                </p>
+            </div>
+            <div class="card-metodo">
+                <span class="icone">🔷</span>
+                <h3>Mahoney TMN (nebuloso)</h3>
+                <p>
+                    Versão fuzzy do método, com transições graduais entre as faixas
+                    climáticas e o grau de pertinência de cada classe em cada mês.
+                </p>
+            </div>
+            <div class="card-metodo">
+                <span class="icone">🎯</span>
+                <h3>Carta de Givoni</h3>
+                <p>
+                    Percentual de horas em cada estratégia de projeto: zona de conforto,
+                    ventilação natural, resfriamento evaporativo, massa térmica e
+                    aquecimento solar.
+                </p>
+            </div>
+            <div class="card-metodo">
+                <span class="icone">☀️</span>
+                <h3>Radiação Solar</h3>
+                <p>
+                    Radiação solar mensal (e horária) recebida em plano horizontal e vertical, com dados extraídos do Atlas Brasileiro de Energia Solar (2017, LABREN/CCST/INPE).
+                </p>
+            </div>
+            <div class="card-metodo">
+                <span class="icone">📐</span>
+                <h3>Geometria Ótima</h3>
+                <p>
+                    Proporção geométrica ideal da edificação para a cidade escolhida, em função do
+                    ganho de radiação solar nas fachadas e na cobertura, em duas
+                    implantações (N×E e NE×SE).
+                </p>
+            </div>
+            <div class="card-metodo">
+                <span class="icone">💡</span>
+                <h3>Luz Natural</h3>
+                <p>
+                    Iluminância do céu em plano horizontal desobstruído e sua frequência de
+                    ocorrência, para definir a iluminância de projeto no dimensionamento
+                    das aberturas.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- COMO USAR -->
+    <section class="secao">
+        <h2 class="secao-titulo">Como Usar o Programa</h2>
+        <div class="grade-orientacoes">
+            <div class="item-orientacao">
+                <span class="num">01</span>
+                <p>Primeiro, <strong>acesse o menu</strong>: clique nas <strong>duas setas (« ou ») à esquerda, no alto da tela</strong>.</p>
+            </div>
+            <div class="item-orientacao">
+                <span class="num">02</span>
+                <p><strong>Escolha a cidade</strong> na lista da página inicial do programa.</p>
+            </div>
+            <div class="item-orientacao">
+                <span class="num">03</span>
+                <p>No menu, <strong>localize a variável de interesse</strong> e clique nela para abrir a página correspondente, com os dados da cidade escolhida.</p>
+            </div>
+        </div>
+
+        <div class="alerta">
+            🌡️ <strong>Aplicações:</strong> estudos de implantação e partido arquitetônico,
+            escolha de estratégias passivas de conforto, dimensionamento de aberturas e
+            fundamentação climática de memoriais e trabalhos acadêmicos.
+        </div>
+    </section>
+
+    <!-- CTA FINAL -->
+    <section class="cta-final">
+        <h2>Pronto para começar?</h2>
+        <p>Escolha o plano ideal para o seu caso e acesse o CLIMATICUS 5.0 agora.</p>
+        <div class="botoes-cta">
+            <a href="https://buy.stripe.com/14A14pdkkabJ7ZW1QEeME0b" class="btn-primario" target="_blank">Mensal — R$ 50/mês</a>
+            <a href="https://buy.stripe.com/28E3cxgwwfw39400MAeME0c" class="btn-primario" target="_blank">Anual — R$ 500/ano</a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        © 2026 AMBIENTAI — Tecnologia da Arquitetura &nbsp;|&nbsp;
+        <a href="mailto:tecnologianaarquitetura@gmail.com">tecnologianaarquitetura@gmail.com</a>
+    </footer>
+
+</body>
+</html>
